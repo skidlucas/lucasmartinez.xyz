@@ -1,4 +1,4 @@
-# lucasmartinez.space
+# lucasmartinez.xyz
 
 my personal cv site. minimalist design, built with astro.
 
@@ -8,6 +8,7 @@ my personal cv site. minimalist design, built with astro.
 - typescript
 - vanilla css
 - bun
+- deployed on coolify
 
 ## dev
 

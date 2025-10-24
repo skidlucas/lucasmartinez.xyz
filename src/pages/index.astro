@@ -15,7 +15,11 @@ const lang = 'en';
 const t = useTranslations(lang);
 ---
 
-<BaseLayout title={`${t('hero.name')} — ${t('hero.title')}`}>
+<BaseLayout
+  title={`${t('hero.name')} — ${t('hero.title')}`}
+  description={t('hero.tagline')}
+  lang={lang}
+>
   <ThemeToggle />
   <LanguageToggle currentLang={lang} />
 
