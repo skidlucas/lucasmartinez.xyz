@@ -1,47 +1,81 @@
 ---
 ---
 
-<style is:global>
-  @keyframes rainbow {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
+<style>
+  .ascii-popper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--fg);
+    pointer-events: none;
+    z-index: 9999;
+    white-space: pre;
+    opacity: 0;
+    animation: asciiAppear 1.5s ease-out forwards;
   }
 
-  @keyframes wobble {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(0.5deg); }
-    75% { transform: rotate(-0.5deg); }
-  }
-
-  @keyframes bg-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  body.goofy-mode {
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
-    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff, #ff00ff) !important;
-    background-size: 400% 400% !important;
-    animation: rainbow 3s linear infinite, wobble 1s ease-in-out infinite, bg-shift 5s ease infinite !important;
-  }
-
-  body.goofy-mode * {
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
-  }
-
-  body.goofy-mode .container {
-    text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00ffff !important;
-  }
-
-  body.goofy-mode a {
-    text-decoration: underline wavy #ff00ff !important;
+  @keyframes asciiAppear {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.3;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 </style>
 
 <script>
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
   let konamiIndex = 0;
+
+  function showPopper() {
+    const ascii = `  _____
+ /     \\
+|  . .  |
+|   o   |    hello
+ \\ ___ /
+    |
+   /|\\
+  / | \\
+    |
+   / \\
+  /   \\`;
+
+    const popper = document.createElement('div');
+    popper.className = 'ascii-popper';
+    popper.textContent = ascii;
+    popper.style.cssText = `
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.2;
+      color: var(--fg);
+      pointer-events: none;
+      z-index: 9999;
+      white-space: pre;
+      animation: asciiAppear 5s ease-out forwards;
+    `;
+    document.body.appendChild(popper);
+
+    setTimeout(() => {
+      popper.remove();
+    }, 5000);
+  }
 
   document.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
@@ -51,7 +85,7 @@
       konamiIndex++;
 
       if (konamiIndex === konamiCode.length) {
-        document.body.classList.toggle('goofy-mode');
+        showPopper();
         konamiIndex = 0;
       }
     } else {
