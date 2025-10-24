@@ -1,0 +1,55 @@
+---
+import { useTranslations, type Language } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="hero" class="hero">
+  <div class="container">
+    <h1 class="fade-in">{t('hero.name')}</h1>
+    <p class="subtitle fade-in stagger-1">{t('hero.title')}</p>
+    <p class="tagline fade-in stagger-2">{t('hero.tagline')}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--fg-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    font-size: 0.875rem;
+    color: var(--fg-muted);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: 80vh;
+    }
+  }
+</style>

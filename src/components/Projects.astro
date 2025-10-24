@@ -1,0 +1,155 @@
+---
+import { useTranslations, type Language } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const projects = [
+  {
+    title: t('projects.bara.title'),
+    description: t('projects.bara.description'),
+    tags: ['react', 'nestjs', 'typescript', 'postgresql', 'coolify'],
+    link: 'https://bara.lukapps.fr'
+  }
+];
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <h2 class="section-title">{t('projects.title')}</h2>
+    <div class="projects-list">
+      {projects.map(project => (
+        <article class="project">
+          <div class="project-header">
+            <h3 class="project-title">{project.title}</h3>
+            <a href={project.link} target="_blank" rel="noopener" class="project-link">
+              {t('projects.bara.link')} →
+            </a>
+          </div>
+          <p class="project-description">{project.description}</p>
+          <div class="project-tags">
+            {project.tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: 8rem 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+    margin-bottom: 3rem;
+    font-weight: 400;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .project {
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    transition: transform var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .project.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project:hover {
+    transform: translateX(4px) translateY(0);
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .project-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  .project-link {
+    color: var(--fg);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    transition: transform var(--transition);
+  }
+
+  .project-link:hover {
+    transform: translateX(4px);
+  }
+
+  .project-description {
+    color: var(--fg-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 5rem 0;
+    }
+
+    .project-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.project').forEach(project => {
+    observer.observe(project);
+  });
+</script>

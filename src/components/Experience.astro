@@ -1,0 +1,185 @@
+---
+import { useTranslations, type Language } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const experiences = [
+  {
+    title: t('experience.graneet.title'),
+    company: t('experience.graneet.company'),
+    period: t('experience.graneet.period'),
+    description: t('experience.graneet.description'),
+    tags: ['nestjs', 'react', 'typescript', 'postgresql', 'aws']
+  },
+  {
+    title: t('experience.lizee.title'),
+    company: t('experience.lizee.company'),
+    period: t('experience.lizee.period'),
+    description: t('experience.lizee.description'),
+    tags: ['nestjs', 'react', 'typescript', 'postgresql']
+  },
+  {
+    title: t('experience.mesdocteurs.title'),
+    company: t('experience.mesdocteurs.company'),
+    period: t('experience.mesdocteurs.period'),
+    description: t('experience.mesdocteurs.description'),
+    tags: ['angular', 'nodejs', 'postgresql']
+  },
+  {
+    title: t('experience.sap.title'),
+    company: t('experience.sap.company'),
+    period: t('experience.sap.period'),
+    description: t('experience.sap.description'),
+    tags: ['python', 'research']
+  }
+];
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <h2 class="section-title">{t('experience.title')}</h2>
+    <div class="experience-list">
+      {experiences.map(exp => (
+        <article class="experience">
+          <div class="experience-header">
+            <div class="experience-title-group">
+              <h3 class="experience-title">{exp.title}</h3>
+              <span class="experience-company">{exp.company}</span>
+            </div>
+            <span class="experience-period">{exp.period}</span>
+          </div>
+          <p class="experience-description">{exp.description}</p>
+          <div class="experience-tags">
+            {exp.tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: 8rem 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+    margin-bottom: 3rem;
+    font-weight: 400;
+  }
+
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .experience {
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    transition: transform var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .experience.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .experience:hover {
+    transform: translateX(4px) translateY(0);
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .experience-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .experience-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+
+  .experience-company {
+    color: var(--fg-muted);
+    font-size: 0.875rem;
+  }
+
+  .experience-period {
+    color: var(--fg-muted);
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .experience-description {
+    color: var(--fg-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .experience-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 5rem 0;
+    }
+
+    .experience-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.experience').forEach(exp => {
+    observer.observe(exp);
+  });
+</script>

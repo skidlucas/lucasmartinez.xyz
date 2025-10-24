@@ -1,0 +1,30 @@
+---
+import { useTranslations, type Language } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <p>© {currentYear} {t('hero.name')}. {t('footer.copyright')}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 8rem;
+  }
+
+  .footer p {
+    color: var(--fg-muted);
+    font-size: 0.875rem;
+  }
+</style>

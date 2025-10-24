@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ThemeToggle from '../../components/ThemeToggle.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+
+const lang = 'kr';
+---
+
+<BaseLayout title="한국어 페이지">
+  <ThemeToggle />
+  <LanguageToggle currentLang={lang} />
+
+  <main>
+    <section class="joke-section">
+      <div class="container">
+        <h1 class="fade-in">한국어를 못해서 미안해요</h1>
+        <p class="subtitle fade-in stagger-1">¯\_(ツ)_/¯</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    min-height: 100vh;
+  }
+
+  .joke-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 400;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--fg-muted);
+    font-family: Arial, sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .joke-section {
+      min-height: 80vh;
+    }
+  }
+</style>

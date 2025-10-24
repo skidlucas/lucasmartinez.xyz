@@ -1,0 +1,63 @@
+---
+import { languages, type Language } from '../i18n/translations';
+
+interface Props {
+  currentLang: Language;
+}
+
+const { currentLang } = Astro.props;
+const otherLangs = Object.keys(languages).filter(lang => lang !== currentLang) as Language[];
+
+const langLabels: Record<Language, string> = {
+  en: 'EN',
+  fr: 'FR',
+  kr: '한'
+};
+---
+
+<div class="language-toggle">
+  {otherLangs.map(lang => (
+    <a
+      href={lang === 'en' ? '/' : `/${lang}/`}
+      class="lang-link"
+      data-lang={lang}
+      aria-label={languages[lang]}
+    >
+      {langLabels[lang]}
+    </a>
+  ))}
+</div>
+
+<style>
+  .language-toggle {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+  }
+
+  .lang-link {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    font-size: 0.875rem;
+    transition: all var(--transition);
+    background: var(--bg);
+  }
+
+  .lang-link::after {
+    display: none;
+  }
+
+  .lang-link:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  @media (max-width: 768px) {
+    .language-toggle {
+      top: 1rem;
+      left: 1rem;
+    }
+  }
+</style>
