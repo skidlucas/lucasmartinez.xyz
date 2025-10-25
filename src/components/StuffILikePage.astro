@@ -1,0 +1,523 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
+import Footer from './Footer.astro';
+import { useTranslations, type Language } from '../i18n/translations';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allInspirations = await getCollection('stuff-i-like', ({ slug }) => {
+  return slug.startsWith(`${lang}/`);
+});
+
+const inspirations = allInspirations.sort((a, b) =>
+  b.data.date.getTime() - a.data.date.getTime()
+);
+
+const types = [...new Set(inspirations.map(item => item.data.type))];
+const categories = [...new Set(inspirations.map(item => item.data.category))];
+const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort();
+---
+
+<BaseLayout
+  title={`${t('stuffILike.title')} — ${t('hero.name')}`}
+  description={t('stuffILike.description')}
+  lang={lang}
+>
+  <ThemeToggle />
+  <LanguageToggle currentLang={lang} />
+
+  <main class="container">
+    <nav class="breadcrumb">
+      <a href={lang === 'en' ? '/' : `/${lang}`}>← {t('nav.home')}</a>
+    </nav>
+
+    <header class="page-header">
+      <h1>{t('stuffILike.title')}</h1>
+      <p class="subtitle">{t('stuffILike.description')}</p>
+    </header>
+
+    <div class="filters">
+      <div class="filter-group">
+        <button class="filter-btn reset-btn active" data-filter="all">
+          {t('stuffILike.filter.all')}
+        </button>
+      </div>
+
+      <div class="filter-separator"></div>
+
+      <div class="filter-group">
+        {types.map(type => (
+          <button class="filter-btn type-filter" data-type={type}>
+            {t(`stuffILike.type.${type}` as any)}
+          </button>
+        ))}
+      </div>
+
+      <div class="filter-separator"></div>
+
+      <div class="filter-group">
+        {categories.map(category => (
+          <button class="filter-btn category-filter" data-category={category}>
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="tag-filters">
+      {allTags.map(tag => (
+        <button class="tag-btn tag-filter" data-tag={tag}>
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <div class="inspiration-grid">
+      {inspirations.map((item) => (
+        <article
+          class="inspiration-card"
+          data-type={item.data.type}
+          data-category={item.data.category}
+          data-tags={item.data.tags.join(',')}
+        >
+          {item.data.image && (
+            <div class="card-image">
+              <img src={item.data.image} alt={item.data.title} />
+            </div>
+          )}
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="type-badge">{t(`stuffILike.type.${item.data.type}` as any)}</span>
+              <span class="category-badge">{item.data.category}</span>
+              <time datetime={item.data.date.toISOString()}>
+                {item.data.date.toLocaleDateString(lang, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </time>
+            </div>
+
+            <h2 class="card-title">
+              <a href={lang === 'en' ? `/stuff-i-like/${item.slug}` : `/fr/stuff-i-like/${item.slug}`}>
+                {item.data.title}
+              </a>
+            </h2>
+
+            <div class="card-tags">
+              {item.data.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+
+            <div class="card-actions">
+              <a href={lang === 'en' ? `/stuff-i-like/${item.slug}` : `/fr/stuff-i-like/${item.slug}`} class="btn-secondary">
+                {t('stuffILike.readMore')}
+              </a>
+              <a href={item.data.url} target="_blank" rel="noopener noreferrer" class="btn-primary">
+                {t('stuffILike.visitLink')}
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <Footer lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1rem;
+    padding-top: 5rem;
+  }
+
+  .breadcrumb a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--fg);
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 0;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-separator {
+    width: 1px;
+    height: 1.5rem;
+    background: var(--border);
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--fg-muted);
+    border-radius: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .filter-btn:hover {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .filter-btn.active {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  @media (max-width: 768px) {
+    .filter-separator {
+      display: none;
+    }
+
+    .breadcrumb {
+      padding-top: 4rem;
+    }
+  }
+
+  .tag-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.375rem;
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+    padding: 0;
+  }
+
+  .tag-btn {
+    padding: 0.25rem 0.625rem;
+    border: none;
+    background: transparent;
+    color: var(--fg-muted);
+    border-radius: 0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+  }
+
+  .tag-btn:hover {
+    color: var(--fg);
+    text-decoration-color: var(--fg);
+  }
+
+  .tag-btn.active {
+    color: var(--fg);
+    text-decoration-color: var(--fg);
+    font-weight: 500;
+  }
+
+  .inspiration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .inspiration-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .inspiration-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .inspiration-card.hidden {
+    display: none;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--color-surface-hover);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .type-badge,
+  .category-badge {
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .type-badge {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .category-badge {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+  }
+
+  time {
+    color: var(--color-text-secondary);
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-title a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .card-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.625rem;
+    background: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    flex: 1;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-surface-hover);
+  }
+
+  @media (max-width: 768px) {
+    .inspiration-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  const resetBtn = document.querySelector('.reset-btn');
+  const typeFilters = document.querySelectorAll('.type-filter');
+  const categoryFilters = document.querySelectorAll('.category-filter');
+  const tagFilters = document.querySelectorAll('.tag-filter');
+  const inspirationCards = document.querySelectorAll('.inspiration-card');
+
+  let selectedType: string | null = null;
+  let selectedCategory: string | null = null;
+  let selectedTags: Set<string> = new Set();
+
+  function applyFilters() {
+    inspirationCards.forEach(card => {
+      const cardType = card.getAttribute('data-type');
+      const cardCategory = card.getAttribute('data-category');
+      const cardTags = card.getAttribute('data-tags')?.split(',') || [];
+
+      const typeMatch = !selectedType || cardType === selectedType;
+      const categoryMatch = !selectedCategory || cardCategory === selectedCategory;
+      const tagsMatch = selectedTags.size === 0 ||
+        Array.from(selectedTags).every(tag => cardTags.includes(tag));
+
+      if (typeMatch && categoryMatch && tagsMatch) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (!selectedType && !selectedCategory && selectedTags.size === 0) {
+      resetBtn?.classList.add('active');
+    } else {
+      resetBtn?.classList.remove('active');
+    }
+  }
+
+  resetBtn?.addEventListener('click', () => {
+    selectedType = null;
+    selectedCategory = null;
+    selectedTags.clear();
+    typeFilters.forEach(btn => btn.classList.remove('active'));
+    categoryFilters.forEach(btn => btn.classList.remove('active'));
+    tagFilters.forEach(btn => btn.classList.remove('active'));
+    applyFilters();
+  });
+
+  typeFilters.forEach(button => {
+    button.addEventListener('click', () => {
+      const type = button.getAttribute('data-type');
+
+      if (selectedType === type) {
+        selectedType = null;
+        button.classList.remove('active');
+      } else {
+        typeFilters.forEach(btn => btn.classList.remove('active'));
+        selectedType = type;
+        button.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  categoryFilters.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+
+      if (selectedCategory === category) {
+        selectedCategory = null;
+        button.classList.remove('active');
+      } else {
+        categoryFilters.forEach(btn => btn.classList.remove('active'));
+        selectedCategory = category;
+        button.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  tagFilters.forEach(button => {
+    button.addEventListener('click', () => {
+      const tag = button.getAttribute('data-tag');
+
+      if (tag) {
+        if (selectedTags.has(tag)) {
+          selectedTags.delete(tag);
+          button.classList.remove('active');
+        } else {
+          selectedTags.add(tag);
+          button.classList.add('active');
+        }
+      }
+
+      applyFilters();
+    });
+  });
+</script>
