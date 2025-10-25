@@ -10,51 +10,55 @@ const t = useTranslations(lang);
 
 const experiences = [
   {
-    title: t('experience.graneet.title'),
-    company: t('experience.graneet.company'),
-    period: t('experience.graneet.period'),
-    description: t('experience.graneet.description'),
-    tags: ['nestjs', 'react', 'typescript', 'postgresql', 'aws']
+    title: t('experiences.graneet.title'),
+    company: t('experiences.graneet.company'),
+    workmode: t('experiences.graneet.workmode'),
+    period: t('experiences.graneet.period'),
+    description: t('experiences.graneet.description'),
+    tags: ['nestjs', 'react', 'typescript', 'postgresql', 'aws', 'ci/cd']
   },
   {
-    title: t('experience.lizee.title'),
-    company: t('experience.lizee.company'),
-    period: t('experience.lizee.period'),
-    description: t('experience.lizee.description'),
-    tags: ['nestjs', 'react', 'typescript', 'postgresql']
+    title: t('experiences.lizee.title'),
+    company: t('experiences.lizee.company'),
+    workmode: t('experiences.lizee.workmode'),
+    period: t('experiences.lizee.period'),
+    description: t('experiences.lizee.description'),
+    tags: ['nestjs', 'react', 'typescript', 'postgresql', 'ci/cd']
   },
   {
-    title: t('experience.mesdocteurs.title'),
-    company: t('experience.mesdocteurs.company'),
-    period: t('experience.mesdocteurs.period'),
-    description: t('experience.mesdocteurs.description'),
-    tags: ['angular', 'nodejs', 'postgresql']
+    title: t('experiences.mesdocteurs.title'),
+    company: t('experiences.mesdocteurs.company'),
+    workmode: t('experiences.mesdocteurs.workmode'),
+    period: t('experiences.mesdocteurs.period'),
+    description: t('experiences.mesdocteurs.description'),
+    tags: ['angular', 'nodejs', 'postgresql', 'ci/cd']
   },
   {
-    title: t('experience.sap.title'),
-    company: t('experience.sap.company'),
-    period: t('experience.sap.period'),
-    description: t('experience.sap.description'),
+    title: t('experiences.sap.title'),
+    company: t('experiences.sap.company'),
+    workmode: t('experiences.sap.workmode'),
+    period: t('experiences.sap.period'),
+    description: t('experiences.sap.description'),
     tags: ['python', 'research']
   }
 ];
 ---
 
-<section id="experience" class="section">
+<section id="experiences" class="section">
   <div class="container">
-    <h2 class="section-title">{t('experience.title')}</h2>
-    <div class="experience-list">
+    <h2 class="section-title">{t('experiences.title')}</h2>
+    <div class="experiences-list">
       {experiences.map(exp => (
-        <article class="experience">
-          <div class="experience-header">
-            <div class="experience-title-group">
-              <h3 class="experience-title">{exp.title}</h3>
-              <span class="experience-company">{exp.company}</span>
+        <article class="experiences">
+          <div class="experiences-header">
+            <div class="experiences-title-group">
+              <h3 class="experiences-title">{exp.title}</h3>
+              <span class="experiences-company">{exp.company} — {exp.workmode}</span>
             </div>
-            <span class="experience-period">{exp.period}</span>
+            <span class="experiences-period">{exp.period}</span>
           </div>
-          <p class="experience-description">{exp.description}</p>
-          <div class="experience-tags">
+          <p class="experiences-description">{exp.description}</p>
+          <div class="experiences-tags">
             {exp.tags.map(tag => (
               <span class="tag">{tag}</span>
             ))}
@@ -79,13 +83,13 @@ const experiences = [
     font-weight: 400;
   }
 
-  .experience-list {
+  .experiences-list {
     display: flex;
     flex-direction: column;
     gap: 4rem;
   }
 
-  .experience {
+  .experiences {
     border-top: 1px solid var(--border);
     padding-top: 2rem;
     transition: transform var(--transition);
@@ -94,16 +98,16 @@ const experiences = [
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
-  .experience.visible {
+  .experiences.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .experience:hover {
+  .experiences:hover {
     transform: translateX(4px) translateY(0);
   }
 
-  .experience-header {
+  .experiences-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -111,35 +115,35 @@ const experiences = [
     gap: 1rem;
   }
 
-  .experience-title-group {
+  .experiences-title-group {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .experience-title {
+  .experiences-title {
     font-size: 1.25rem;
     font-weight: 400;
   }
 
-  .experience-company {
+  .experiences-company {
     color: var(--fg-muted);
     font-size: 0.875rem;
   }
 
-  .experience-period {
+  .experiences-period {
     color: var(--fg-muted);
     font-size: 0.875rem;
     white-space: nowrap;
   }
 
-  .experience-description {
+  .experiences-description {
     color: var(--fg-muted);
     line-height: 1.8;
     margin-bottom: 1.5rem;
   }
 
-  .experience-tags {
+  .experiences-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -157,7 +161,7 @@ const experiences = [
       padding: 5rem 0;
     }
 
-    .experience-header {
+    .experiences-header {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
@@ -179,7 +183,7 @@ const experiences = [
     });
   }, observerOptions);
 
-  document.querySelectorAll('.experience').forEach(exp => {
+  document.querySelectorAll('.experiences').forEach(exp => {
     observer.observe(exp);
   });
 </script>
