@@ -13,12 +13,36 @@ const langLabels: Record<Language, string> = {
   fr: 'FR',
   kr: '한'
 };
+
+const currentPath = Astro.url.pathname;
+
+function getLocalizedPath(targetLang: Language, currentPath: string, currentLang: Language): string {
+  // If we're on the home page
+  if (currentPath === '/' || currentPath === `/${currentLang}` || currentPath === `/${currentLang}/`) {
+    return targetLang === 'en' ? '/' : `/${targetLang}/`;
+  }
+
+  // Remove current language prefix if it exists
+  let pathWithoutLang = currentPath;
+  if (currentPath.startsWith(`/${currentLang}/`)) {
+    pathWithoutLang = currentPath.replace(`/${currentLang}/`, '/');
+  } else if (currentPath.startsWith(`/${currentLang}`)) {
+    pathWithoutLang = currentPath.replace(`/${currentLang}`, '/');
+  }
+
+  // Add target language prefix (except for English which is default)
+  if (targetLang === 'en') {
+    return pathWithoutLang;
+  } else {
+    return `/${targetLang}${pathWithoutLang}`;
+  }
+}
 ---
 
 <div class="language-toggle">
   {otherLangs.map(lang => (
     <a
-      href={lang === 'en' ? '/' : `/${lang}/`}
+      href={getLocalizedPath(lang, currentPath, currentLang)}
       class="lang-link"
       data-lang={lang}
       aria-label={languages[lang]}

@@ -1,0 +1,303 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ThemeToggle from '../../components/ThemeToggle.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import Footer from '../../components/Footer.astro';
+import { useTranslations } from '../../i18n/translations';
+
+export async function getStaticPaths() {
+  const stuffILikeEntries = await getCollection('stuff-i-like');
+  return stuffILikeEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'stuff-i-like'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const lang = entry.data.lang;
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  title={`${entry.data.title} — ${t('stuffILike.title')}`}
+  description={entry.data.title}
+  lang={lang}
+>
+  <ThemeToggle />
+  <LanguageToggle currentLang={lang} />
+
+  <main class="container">
+    <nav class="breadcrumb">
+      <a href={lang === 'en' ? '/stuff-i-like' : `/${lang}/stuff-i-like`}>
+        ← {t('stuffILike.title')}
+      </a>
+    </nav>
+
+    <article class="stuff-i-like-detail">
+      {entry.data.image && (
+        <div class="hero-image">
+          <img src={entry.data.image} alt={entry.data.title} />
+        </div>
+      )}
+
+      <header class="article-header">
+        <div class="meta">
+          <span class="type-badge">{t(`stuffILike.type.${entry.data.type}` as any)}</span>
+          <span class="category-badge">{entry.data.category}</span>
+          <time datetime={entry.data.date.toISOString()}>
+            {entry.data.date.toLocaleDateString(lang, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
+        </div>
+
+        <h1>{entry.data.title}</h1>
+
+        <div class="tags">
+          {entry.data.tags.map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      <div class="content">
+        <Content />
+      </div>
+
+      <div class="actions">
+        <a
+          href={entry.data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary"
+        >
+          {t('stuffILike.visitLink')} →
+        </a>
+      </div>
+    </article>
+
+    <Footer lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .breadcrumb {
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .stuff-i-like-detail {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: var(--color-surface-hover);
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .type-badge,
+  .category-badge {
+    padding: 0.375rem 0.875rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.75rem;
+  }
+
+  .type-badge {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .category-badge {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+  }
+
+  time {
+    color: var(--color-text-secondary);
+  }
+
+  .article-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    padding: 0.375rem 0.875rem;
+    background: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    padding: 2rem;
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .content :global(h2) {
+    font-size: 1.75rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .content :global(h3) {
+    font-size: 1.375rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+  }
+
+  .content :global(a) {
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-primary);
+    transition: opacity 0.2s;
+  }
+
+  .content :global(a:hover) {
+    opacity: 0.8;
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .content :global(blockquote) {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-surface-hover);
+    font-style: italic;
+  }
+
+  .content :global(code) {
+    background: var(--color-surface-hover);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+
+  .content :global(pre) {
+    background: var(--color-surface-hover);
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .content :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .actions {
+    padding: 2rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    padding: 0.875rem 2rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .article-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .hero-image {
+      height: 250px;
+    }
+  }
+</style>

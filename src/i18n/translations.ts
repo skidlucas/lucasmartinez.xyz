@@ -8,11 +8,12 @@ export const defaultLang = 'en';
 
 export const translations = {
   en: {
-    'nav.home': 'Home',
-    'nav.about': 'About',
-    'nav.experience': 'Experience',
-    'nav.projects': 'Projects',
-    'nav.contact': 'Contact',
+    'nav.home': 'home',
+    'nav.about': 'about',
+    'nav.experience': 'experience',
+    'nav.projects': 'projects',
+    'nav.stuffILike': 'stuff i like',
+    'nav.contact': 'contact',
 
     'hero.name': 'lucas martinez',
     'hero.title': 'software engineer',
@@ -62,12 +63,27 @@ export const translations = {
     'contact.linkedin': 'linkedin',
 
     'footer.copyright': 'all rights reserved.',
+
+    'stuffILike.title': 'stuff i like',
+    'stuffILike.description': 'articles, videos, books, and other resources that inspire me',
+    'stuffILike.filter.all': 'all',
+    'stuffILike.filter.type': 'by type',
+    'stuffILike.filter.category': 'by category',
+    'stuffILike.type.article': 'article',
+    'stuffILike.type.video': 'video',
+    'stuffILike.type.book': 'book',
+    'stuffILike.type.podcast': 'podcast',
+    'stuffILike.type.tool': 'tool',
+    'stuffILike.type.other': 'other',
+    'stuffILike.readMore': 'read more',
+    'stuffILike.visitLink': 'visit link',
   },
   fr: {
     'nav.home': 'accueil',
     'nav.about': 'à propos',
-    'nav.experience': 'expérience',
+    'nav.experience': 'expériences',
     'nav.projects': 'projets',
+    'nav.stuffILike': 'trucs que j\'aime',
     'nav.contact': 'contact',
 
     'hero.name': 'lucas martinez',
@@ -118,7 +134,21 @@ export const translations = {
     'contact.linkedin': 'linkedin',
 
     'footer.copyright': 'tous droits réservés.',
-  }
+
+    'stuffILike.title': 'trucs que j\'aime',
+    'stuffILike.description': 'articles, vidéos, livres et autres ressources qui m\'inspirent',
+    'stuffILike.filter.all': 'tout',
+    'stuffILike.filter.type': 'par type',
+    'stuffILike.filter.category': 'par catégorie',
+    'stuffILike.type.article': 'article',
+    'stuffILike.type.video': 'vidéo',
+    'stuffILike.type.book': 'livre',
+    'stuffILike.type.podcast': 'podcast',
+    'stuffILike.type.tool': 'outil',
+    'stuffILike.type.other': 'autre',
+    'stuffILike.readMore': 'lire plus',
+    'stuffILike.visitLink': 'visiter le lien',
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations.en;

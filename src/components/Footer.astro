@@ -12,6 +12,11 @@ const currentYear = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container">
+    <nav class="footer-nav">
+      <a href={lang === 'en' ? '/stuff-i-like' : `/${lang}/stuff-i-like`}>
+        {t('nav.stuffILike')}
+      </a>
+    </nav>
     <p>© {currentYear} {t('hero.name')}. {t('footer.copyright')}</p>
   </div>
 </footer>
@@ -21,6 +26,24 @@ const currentYear = new Date().getFullYear();
     padding: 4rem 0;
     border-top: 1px solid var(--border);
     margin-top: 8rem;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-nav a {
+    color: var(--fg-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+
+  .footer-nav a:hover {
+    color: var(--fg);
   }
 
   .footer p {

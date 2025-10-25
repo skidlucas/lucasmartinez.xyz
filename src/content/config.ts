@@ -1,0 +1,19 @@
+import { defineCollection, z } from 'astro:content';
+
+const stuffILikeCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    url: z.string().url(),
+    type: z.enum(['article', 'video', 'book', 'podcast', 'tool', 'other']),
+    category: z.string(),
+    tags: z.array(z.string()),
+    image: z.string().optional(),
+    date: z.date(),
+    lang: z.enum(['en', 'fr', 'kr']).default('en'),
+  }),
+});
+
+export const collections = {
+  'stuff-i-like': stuffILikeCollection,
+};
