@@ -19,6 +19,7 @@ const inspirations = allInspirations.sort((a, b) =>
 
 const types = [...new Set(inspirations.map(item => item.data.type))];
 const categories = [...new Set(inspirations.map(item => item.data.category))];
+const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort();
 ---
 
 <BaseLayout
@@ -65,6 +66,14 @@ const categories = [...new Set(inspirations.map(item => item.data.category))];
           </button>
         ))}
       </div>
+    </div>
+
+    <div class="tag-filters">
+      {allTags.map(tag => (
+        <button class="tag-btn tag-filter" data-tag={tag}>
+          {tag}
+        </button>
+      ))}
     </div>
 
     <div class="inspiration-grid">
@@ -219,6 +228,42 @@ const categories = [...new Set(inspirations.map(item => item.data.category))];
     .filter-separator {
       display: none;
     }
+  }
+
+  .tag-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.375rem;
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+    padding: 0;
+  }
+
+  .tag-btn {
+    padding: 0.25rem 0.625rem;
+    border: none;
+    background: transparent;
+    color: var(--fg-muted);
+    border-radius: 0;
+    font-size: 0.75rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+  }
+
+  .tag-btn:hover {
+    color: var(--fg);
+    text-decoration-color: var(--fg);
+  }
+
+  .tag-btn.active {
+    color: var(--fg);
+    text-decoration-color: var(--fg);
+    font-weight: 500;
   }
 
   .inspiration-grid {
@@ -377,32 +422,35 @@ const categories = [...new Set(inspirations.map(item => item.data.category))];
 </style>
 
 <script>
-  // Combined filter functionality (type AND category)
   const resetBtn = document.querySelector('.reset-btn');
   const typeFilters = document.querySelectorAll('.type-filter');
   const categoryFilters = document.querySelectorAll('.category-filter');
+  const tagFilters = document.querySelectorAll('.tag-filter');
   const inspirationCards = document.querySelectorAll('.inspiration-card');
 
   let selectedType: string | null = null;
   let selectedCategory: string | null = null;
+  let selectedTags: Set<string> = new Set();
 
   function applyFilters() {
     inspirationCards.forEach(card => {
       const cardType = card.getAttribute('data-type');
       const cardCategory = card.getAttribute('data-category');
+      const cardTags = card.getAttribute('data-tags')?.split(',') || [];
 
       const typeMatch = !selectedType || cardType === selectedType;
       const categoryMatch = !selectedCategory || cardCategory === selectedCategory;
+      const tagsMatch = selectedTags.size === 0 ||
+        Array.from(selectedTags).every(tag => cardTags.includes(tag));
 
-      if (typeMatch && categoryMatch) {
+      if (typeMatch && categoryMatch && tagsMatch) {
         card.classList.remove('hidden');
       } else {
         card.classList.add('hidden');
       }
     });
 
-    // Update reset button state
-    if (!selectedType && !selectedCategory) {
+    if (!selectedType && !selectedCategory && selectedTags.size === 0) {
       resetBtn?.classList.add('active');
     } else {
       resetBtn?.classList.remove('active');
@@ -413,8 +461,10 @@ const categories = [...new Set(inspirations.map(item => item.data.category))];
   resetBtn?.addEventListener('click', () => {
     selectedType = null;
     selectedCategory = null;
+    selectedTags.clear();
     typeFilters.forEach(btn => btn.classList.remove('active'));
     categoryFilters.forEach(btn => btn.classList.remove('active'));
+    tagFilters.forEach(btn => btn.classList.remove('active'));
     applyFilters();
   });
 
@@ -424,11 +474,9 @@ const categories = [...new Set(inspirations.map(item => item.data.category))];
       const type = button.getAttribute('data-type');
 
       if (selectedType === type) {
-        // Deselect if clicking the same type
         selectedType = null;
         button.classList.remove('active');
       } else {
-        // Select new type
         typeFilters.forEach(btn => btn.classList.remove('active'));
         selectedType = type;
         button.classList.add('active');
@@ -444,14 +492,31 @@ const categories = [...new Set(inspirations.map(item => item.data.category))];
       const category = button.getAttribute('data-category');
 
       if (selectedCategory === category) {
-        // Deselect if clicking the same category
         selectedCategory = null;
         button.classList.remove('active');
       } else {
-        // Select new category
         categoryFilters.forEach(btn => btn.classList.remove('active'));
         selectedCategory = category;
         button.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  // Tag filters (multiple selection allowed)
+  tagFilters.forEach(button => {
+    button.addEventListener('click', () => {
+      const tag = button.getAttribute('data-tag');
+
+      if (tag) {
+        if (selectedTags.has(tag)) {
+          selectedTags.delete(tag);
+          button.classList.remove('active');
+        } else {
+          selectedTags.add(tag);
+          button.classList.add('active');
+        }
       }
 
       applyFilters();
