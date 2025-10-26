@@ -1,5 +1,5 @@
 ---
-title: "just an exemple"
+title: "just an example"
 url: "https://lucasmartinez.xyz"
 type: "article"
 category: "tech"
