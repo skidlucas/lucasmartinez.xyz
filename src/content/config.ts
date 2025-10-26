@@ -5,8 +5,6 @@ const stuffILikeCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     url: z.string().url(),
-    type: z.enum(['article', 'video', 'book', 'podcast', 'tool', 'other']),
-    category: z.string(),
     tags: z.array(z.string()),
     image: z.string().optional(),
     date: z.date(),

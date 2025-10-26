@@ -50,8 +50,6 @@ const t = useTranslations(lang);
 
       <header class="article-header">
         <div class="meta">
-          <span class="type-badge">{t(`stuffILike.type.${entry.data.type}` as any)}</span>
-          <span class="category-badge">{entry.data.category}</span>
           <time datetime={entry.data.date.toISOString()}>
             {entry.data.date.toLocaleDateString(lang, {
               year: 'numeric',
@@ -98,19 +96,19 @@ const t = useTranslations(lang);
   }
 
   .breadcrumb {
-    margin-bottom: 2rem;
-    padding-top: 2rem;
+    margin-bottom: 1rem;
+    padding-top: 5rem;
   }
 
   .breadcrumb a {
-    color: var(--color-text-secondary);
+    color: var(--fg-muted);
     text-decoration: none;
     font-size: 0.875rem;
     transition: color 0.2s;
   }
 
   .breadcrumb a:hover {
-    color: var(--color-primary);
+    color: var(--fg);
   }
 
   .stuff-i-like-detail {
@@ -148,26 +146,6 @@ const t = useTranslations(lang);
     font-size: 0.875rem;
   }
 
-  .type-badge,
-  .category-badge {
-    padding: 0.375rem 0.875rem;
-    border-radius: 0.25rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.75rem;
-  }
-
-  .type-badge {
-    background: var(--color-primary);
-    color: white;
-  }
-
-  .category-badge {
-    background: var(--color-surface-hover);
-    color: var(--color-text);
-  }
-
   time {
     color: var(--color-text-secondary);
   }
@@ -186,11 +164,12 @@ const t = useTranslations(lang);
   }
 
   .tag {
-    padding: 0.375rem 0.875rem;
-    background: var(--color-surface-hover);
-    color: var(--color-text-secondary);
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
+    padding: 0.25rem 0.625rem;
+    background: transparent;
+    color: var(--fg-muted);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    font-size: 0.75rem;
   }
 
   .content {
@@ -292,6 +271,10 @@ const t = useTranslations(lang);
   }
 
   @media (max-width: 768px) {
+    .breadcrumb {
+      padding-top: 4rem;
+    }
+
     .article-header h1 {
       font-size: 1.75rem;
     }
