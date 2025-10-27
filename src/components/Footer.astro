@@ -13,7 +13,10 @@ const currentYear = new Date().getFullYear();
 <footer class="footer">
   <div class="container">
     <nav class="footer-nav">
-      <a href={lang === 'en' ? '/stuff-i-like' : `/${lang}/stuff-i-like`}>
+      <a href="/now">
+        {t('nav.now')}
+      </a>
+      <a href="/stuff-i-like">
         {t('nav.stuffILike')}
       </a>
     </nav>

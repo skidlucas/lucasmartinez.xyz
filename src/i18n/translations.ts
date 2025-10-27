@@ -13,6 +13,7 @@ export const translations = {
     'nav.experiences': 'experiences',
     'nav.projects': 'projects',
     'nav.stuffILike': 'stuff i like',
+    'nav.now': 'now',
     'nav.contact': 'contact',
 
     'hero.name': 'lucas martinez',
@@ -72,13 +73,29 @@ export const translations = {
     'stuffILike.description': 'articles, videos, books, and other resources that inspire me',
     'stuffILike.readMore': 'read more',
     'stuffILike.visitLink': 'visit',
+
+    'now.title': 'now',
+    'now.subtitle': 'what i\'m currently working on',
+    'now.lastUpdated': 'last updated',
+    'now.work.title': 'work',
+    'now.work.content': 'building new features at graneet',
+    'now.learning.title': 'learning',
+    'now.learning.content': 'nothing ',
+    'now.reading.title': 'reading',
+    'now.reading.content': 'currently reading "the software engineer\'s guidebook" by gergely orosz',
+    'now.projects.title': 'side projects',
+    'now.projects.content': 'working on this site',
+    'now.personal.title': 'personal',
+    'now.personal.content': 'training for the paris half-marathon',
+    'now.inspired.title': 'inspired by',
   },
   fr: {
     'nav.home': 'accueil',
     'nav.about': 'à propos',
     'nav.experiences': 'expériences',
     'nav.projects': 'projets',
-    'nav.stuffILike': 'trucs que j\'aime',
+    'nav.stuffILike': 'stuff i like',
+    'nav.now': 'now',
     'nav.contact': 'contact',
 
     'hero.name': 'lucas martinez',
@@ -133,11 +150,6 @@ export const translations = {
     'contact.linkedin': 'linkedin',
 
     'footer.copyright': 'tous droits réservés.',
-
-    'stuffILike.title': 'trucs que j\'aime',
-    'stuffILike.description': 'articles, vidéos, livres et autres ressources qui m\'inspirent',
-    'stuffILike.readMore': 'lire plus',
-    'stuffILike.visitLink': 'visiter',
   },
 } as const;
 

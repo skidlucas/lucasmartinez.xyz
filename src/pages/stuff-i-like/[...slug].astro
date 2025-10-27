@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ThemeToggle from '../../components/ThemeToggle.astro';
-import LanguageToggle from '../../components/LanguageToggle.astro';
+import BackButton from '../../components/BackButton.astro';
 import Footer from '../../components/Footer.astro';
 import { useTranslations } from '../../i18n/translations';
 
@@ -22,7 +22,7 @@ interface Props {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-const lang = entry.data.lang;
+const lang = 'en';
 const t = useTranslations(lang);
 ---
 
@@ -31,15 +31,10 @@ const t = useTranslations(lang);
   description={entry.data.title}
   lang={lang}
 >
+  <BackButton href="/stuff-i-like" label={`← ${t('stuffILike.title')}`} />
   <ThemeToggle />
-  <LanguageToggle currentLang={lang} />
 
   <main class="container">
-    <nav class="breadcrumb">
-      <a href={lang === 'en' ? '/stuff-i-like' : `/${lang}/stuff-i-like`}>
-        ← {t('stuffILike.title')}
-      </a>
-    </nav>
 
     <article class="stuff-i-like-detail">
       {entry.data.image && (
@@ -93,22 +88,7 @@ const t = useTranslations(lang);
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
-  }
-
-  .breadcrumb {
-    margin-bottom: 1rem;
     padding-top: 5rem;
-  }
-
-  .breadcrumb a {
-    color: var(--fg-muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: color 0.2s;
-  }
-
-  .breadcrumb a:hover {
-    color: var(--fg);
   }
 
   .stuff-i-like-detail {
@@ -271,7 +251,7 @@ const t = useTranslations(lang);
   }
 
   @media (max-width: 768px) {
-    .breadcrumb {
+    .container {
       padding-top: 4rem;
     }
 

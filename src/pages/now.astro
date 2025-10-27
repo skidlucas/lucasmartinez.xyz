@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import BackButton from '../components/BackButton.astro';
+import Footer from '../components/Footer.astro';
+import { useTranslations } from '../i18n/translations';
+
+const lang = 'en';
+const t = useTranslations(lang);
+const lastUpdated = 'october 2025';
+---
+
+<BaseLayout
+  title={`${t('now.title')} — ${t('hero.name')}`}
+  description={t('now.subtitle')}
+  lang={lang}
+>
+  <BackButton href="/" />
+  <ThemeToggle />
+
+  <main>
+    <section class="now-section">
+      <div class="container">
+        <h1>{t('now.title')}</h1>
+        <p class="subtitle">{t('now.subtitle')}</p>
+        <p class="last-updated">{t('now.lastUpdated')}: {lastUpdated}</p>
+
+        <div class="now-content">
+          <div class="now-item">
+            <h2>{t('now.work.title')}</h2>
+            <p>{t('now.work.content')}</p>
+          </div>
+
+          <!-- <div class="now-item">
+            <h2>{t('now.learning.title')}</h2>
+            <p>{t('now.learning.content')}</p>
+          </div> -->
+
+          <div class="now-item">
+            <h2>{t('now.reading.title')}</h2>
+            <p>{t('now.reading.content')}</p>
+          </div>
+
+          <div class="now-item">
+            <h2>{t('now.projects.title')}</h2>
+            <p>{t('now.projects.content')}</p>
+          </div>
+
+          <div class="now-item">
+            <h2>{t('now.personal.title')}</h2>
+            <p>{t('now.personal.content')}</p>
+          </div>
+        </div>
+
+        <div class="inspired">
+          <p>
+            {t('now.inspired.title')} <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer">nownownow.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <Footer lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    min-height: 100vh;
+  }
+
+  .now-section {
+    padding: 6rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: var(--fg-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .last-updated {
+    font-size: 0.875rem;
+    color: var(--fg-muted);
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  .now-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .now-item h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+  }
+
+  .now-item p {
+    line-height: 1.6;
+    color: var(--fg-muted);
+  }
+
+  .inspired {
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--fg-muted);
+  }
+
+  .inspired a {
+    color: var(--fg);
+    text-decoration: underline;
+  }
+
+  .inspired a:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .now-section {
+      padding: 4rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
