@@ -2,8 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ThemeToggle from '../../components/ThemeToggle.astro';
 import LanguageToggle from '../../components/LanguageToggle.astro';
+import type { Language } from '../../i18n/translations';
 
-const lang = 'kr';
+const lang = 'kr' as Language;
 ---
 
 <BaseLayout title="한국어 페이지">

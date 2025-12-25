@@ -8,7 +8,7 @@ interface Props {
 const { currentLang } = Astro.props;
 const otherLangs = Object.keys(languages).filter(lang => lang !== currentLang) as Language[];
 
-const langLabels: Record<Language, string> = {
+const langLabels: Record<string, string> = {
   en: 'EN',
   fr: 'FR',
   kr: '한'

@@ -103,6 +103,7 @@ export const translations = {
     'nav.experiences': 'expériences',
     'nav.projects': 'projets',
     'nav.stuffILike': 'stuff i like',
+    'nav.snippets': 'snippets',
     'nav.now': 'now',
     'nav.contact': 'contact',
 
@@ -166,7 +167,9 @@ export type Language = keyof typeof translations;
 
 export function useTranslations(lang: Language = defaultLang) {
   return function t(key: TranslationKey): string {
-    return translations[lang][key] || translations[defaultLang][key];
+    const langTranslations = translations[lang] as Record<string, string>;
+    const defaultTranslations = translations[defaultLang] as Record<string, string>;
+    return langTranslations[key] || defaultTranslations[key];
   }
 }
 
