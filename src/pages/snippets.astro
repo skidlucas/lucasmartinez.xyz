@@ -9,7 +9,7 @@ import { useTranslations } from '../i18n/translations';
 const lang = 'en';
 const t = useTranslations(lang);
 
-const allInspirations = await getCollection('stuff-i-like');
+const allInspirations = await getCollection('snippets');
 
 const inspirations = allInspirations.sort((a, b) =>
   b.data.date.getTime() - a.data.date.getTime()
@@ -19,8 +19,8 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
 ---
 
 <BaseLayout
-  title={`${t('stuffILike.title')} — ${t('hero.name')}`}
-  description={t('stuffILike.description')}
+  title={`${t('snippets.title')} — ${t('hero.name')}`}
+  description={t('snippets.description')}
   lang={lang}
 >
   <BackButton href="/" label={`← ${t('nav.home')}`} />
@@ -29,8 +29,8 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
   <main class="container">
 
     <header class="page-header">
-      <h1>{t('stuffILike.title')}</h1>
-      <p class="subtitle">{t('stuffILike.description')}</p>
+      <h1>{t('snippets.title')}</h1>
+      <p class="subtitle">{t('snippets.description')}</p>
     </header>
 
     <div class="tag-filters">
@@ -47,11 +47,6 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
           class="inspiration-card"
           data-tags={item.data.tags.join(',')}
         >
-          {item.data.image && (
-            <div class="card-image">
-              <img src={item.data.image} alt={item.data.title} />
-            </div>
-          )}
           <div class="card-content">
             <div class="card-meta">
               <time datetime={item.data.date.toISOString()}>
@@ -64,7 +59,7 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
             </div>
 
             <h2 class="card-title">
-              <a href={`/stuff-i-like/${item.slug}`}>
+              <a href={`/snippets/${item.slug}`}>
                 {item.data.title}
               </a>
             </h2>
@@ -77,10 +72,10 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
 
             <div class="card-actions">
               <a href={`/stuff-i-like/${item.slug}`} class="btn-secondary">
-                {t('stuffILike.readMore')}
+                {t('snippets.readMore')}
               </a>
               <a href={item.data.url} target="_blank" rel="noopener noreferrer" class="btn-primary">
-                {t('stuffILike.visitLink')}
+                {t('snippets.visitLink')}
               </a>
             </div>
           </div>

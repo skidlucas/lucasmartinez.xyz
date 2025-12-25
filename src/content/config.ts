@@ -12,6 +12,18 @@ const stuffILikeCollection = defineCollection({
   }),
 });
 
+const snippetsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    url: z.string().url(),
+    tags: z.array(z.string()),
+    date: z.date(),
+    lang: z.enum(['en', 'fr', 'kr']).default('en'),
+  }),
+});
+
 export const collections = {
   'stuff-i-like': stuffILikeCollection,
+  'snippets': snippetsCollection,
 };
