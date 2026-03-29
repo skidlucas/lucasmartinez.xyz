@@ -5,7 +5,7 @@ interface Props {
   currentLang: Language;
 }
 
-const { currentLang } = Astro.props;
+const { currentLang }: Props = Astro.props;
 const otherLangs = Object.keys(languages).filter(lang => lang !== currentLang) as Language[];
 
 const langLabels: Record<string, string> = {
@@ -22,7 +22,7 @@ function getLangPath(targetLang: Language): string {
 ---
 
 <div class="language-toggle">
-  {otherLangs.map(lang => (
+  {otherLangs.map((lang: Language) => (
     <a
       href={getLangPath(lang)}
       class="lang-link"

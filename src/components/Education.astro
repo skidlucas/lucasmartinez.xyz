@@ -5,10 +5,17 @@ interface Props {
   lang: Language;
 }
 
-const { lang } = Astro.props;
+interface EducationItem {
+  degree: string;
+  school: string;
+  period: string;
+  specialization?: string;
+}
+
+const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
 
-const education = [
+const education: EducationItem[] = [
   {
     degree: t('education.polytech.degree'),
     school: t('education.polytech.school'),
@@ -27,7 +34,7 @@ const education = [
   <div class="container">
     <h2 class="section-title">{t('education.title')}</h2>
     <div class="education-list">
-      {education.map(edu => (
+      {education.map((edu: EducationItem) => (
         <article class="education-item">
           <div class="education-header">
             <div class="education-title-group">
@@ -169,20 +176,20 @@ const education = [
 </style>
 
 <script>
-  const observerOptions = {
+  const observerOptions: IntersectionObserverInit = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry: IntersectionObserverEntry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.education-item').forEach(item => {
+  document.querySelectorAll('.education-item').forEach((item: Element) => {
     observer.observe(item);
   });
 </script>

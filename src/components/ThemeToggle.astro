@@ -59,5 +59,9 @@
     localStorage.setItem('theme', isDark ? 'light' : 'dark');
   };
 
-  document.getElementById('theme-toggle')?.addEventListener('click', handleToggleClick);
+  const toggleButton = document.getElementById('theme-toggle');
+
+  if (toggleButton instanceof HTMLButtonElement) {
+    toggleButton.addEventListener('click', handleToggleClick);
+  }
 </script>

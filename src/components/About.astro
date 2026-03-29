@@ -5,10 +5,10 @@ interface Props {
   lang: Language;
 }
 
-const { lang } = Astro.props;
+const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
 
-const skills = [
+const skills: string[] = [
   "javascript", "typescript", "nestjs", "react",
   "postgresql", "aws", "git", "datadog", "ci/cd"
 ];
@@ -21,7 +21,7 @@ const skills = [
       <p>{t('about.paragraph1')}</p>
       <p>{t('about.paragraph2')}</p>
       <div class="skills">
-        {skills.map(skill => (
+        {skills.map((skill: string) => (
           <span class="skill">{skill}</span>
         ))}
       </div>

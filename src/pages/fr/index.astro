@@ -43,8 +43,8 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
+    anchor.addEventListener('click', (e: Event) => {
       e.preventDefault();
       const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
       const target = href ? document.querySelector(href) : null;

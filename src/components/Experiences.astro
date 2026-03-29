@@ -5,10 +5,19 @@ interface Props {
   lang: Language;
 }
 
-const { lang } = Astro.props;
+interface Experience {
+  title: string;
+  company: string;
+  workmode: string;
+  period: string;
+  description: string;
+  tags: string[];
+}
+
+const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
 
-const experiences = [
+const experiences: Experience[] = [
   {
     title: t('experiences.graneet.title'),
     company: t('experiences.graneet.company'),
@@ -48,7 +57,7 @@ const experiences = [
   <div class="container">
     <h2 class="section-title">{t('experiences.title')}</h2>
     <div class="experiences-list">
-      {experiences.map(exp => (
+      {experiences.map((exp: Experience) => (
         <article class="experiences">
           <div class="experiences-header">
             <div class="experiences-title-group">
@@ -59,7 +68,7 @@ const experiences = [
           </div>
           <p class="experiences-description">{exp.description}</p>
           <div class="experiences-tags">
-            {exp.tags.map(tag => (
+            {exp.tags.map((tag: string) => (
               <span class="tag">{tag}</span>
             ))}
           </div>
@@ -207,20 +216,20 @@ const experiences = [
 </style>
 
 <script>
-  const observerOptions = {
+  const observerOptions: IntersectionObserverInit = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry: IntersectionObserverEntry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.experiences').forEach(exp => {
+  document.querySelectorAll('.experiences').forEach((exp: Element) => {
     observer.observe(exp);
   });
 </script>

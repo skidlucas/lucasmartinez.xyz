@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import BackButton from '../components/BackButton.astro';
@@ -9,13 +10,15 @@ import { useTranslations } from '../i18n/translations';
 const lang = 'en';
 const t = useTranslations(lang);
 
-const allInspirations = await getCollection('stuff-i-like');
+type StuffILikeEntry = CollectionEntry<'stuff-i-like'>;
 
-const inspirations = allInspirations.sort((a, b) =>
+const allInspirations: StuffILikeEntry[] = await getCollection('stuff-i-like');
+
+const inspirations: StuffILikeEntry[] = allInspirations.sort((a, b) =>
   b.data.date.getTime() - a.data.date.getTime()
 );
 
-const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort();
+const allTags: string[] = [...new Set(inspirations.flatMap(item => item.data.tags))].sort();
 ---
 
 <BaseLayout
@@ -34,7 +37,7 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
     </header>
 
     <div class="tag-filters">
-      {allTags.map(tag => (
+      {allTags.map((tag: string) => (
         <button class="tag-btn tag-filter" data-tag={tag}>
           {tag}
         </button>
@@ -42,7 +45,7 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
     </div>
 
     <div class="inspiration-grid">
-      {inspirations.map((item) => (
+      {inspirations.map((item: StuffILikeEntry) => (
         <article
           class="inspiration-card"
           data-tags={item.data.tags.join(',')}
@@ -64,19 +67,19 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
             </div>
 
             <h2 class="card-title">
-              <a href={`/stuff-i-like/${item.slug}`}>
+              <a href={`/stuff-i-like/${item.id}`}>
                 {item.data.title}
               </a>
             </h2>
 
             <div class="card-tags">
-              {item.data.tags.map(tag => (
+              {item.data.tags.map((tag: string) => (
                 <span class="tag">{tag}</span>
               ))}
             </div>
 
             <div class="card-actions">
-              <a href={`/stuff-i-like/${item.slug}`} class="btn-secondary">
+              <a href={`/stuff-i-like/${item.id}`} class="btn-secondary">
                 {t('stuffILike.readMore')}
               </a>
               <a href={item.data.url} target="_blank" rel="noopener noreferrer" class="btn-primary">
@@ -308,11 +311,11 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
   let selectedTags: Set<string> = new Set();
 
   function applyFilters() {
-    inspirationCards.forEach(card => {
+    inspirationCards.forEach((card: Element) => {
       const cardTags = card.getAttribute('data-tags')?.split(',') || [];
 
       const tagsMatch = selectedTags.size === 0 ||
-        Array.from(selectedTags).every(tag => cardTags.includes(tag));
+        Array.from(selectedTags).every((tag: string) => cardTags.includes(tag));
 
       if (tagsMatch) {
         card.classList.remove('hidden');
@@ -322,7 +325,7 @@ const allTags = [...new Set(inspirations.flatMap(item => item.data.tags))].sort(
     });
   }
 
-  tagFilters.forEach(button => {
+  tagFilters.forEach((button: Element) => {
     button.addEventListener('click', () => {
       const tag = button.getAttribute('data-tag');
 

@@ -5,15 +5,31 @@ interface Props {
   lang: Language;
 }
 
-const { lang } = Astro.props;
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  linkLabel: string;
+}
+
+const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
 
-const projects = [
+const projects: Project[] = [
+  {
+    title: t('projects.dropthing.title'),
+    description: t('projects.dropthing.description'),
+    tags: ['effect', 'typescript'],
+    link: 'https://dropthing.lukapps.fr',
+    linkLabel: t('projects.dropthing.link')
+  },
   {
     title: t('projects.bara.title'),
     description: t('projects.bara.description'),
     tags: ['react', 'nestjs', 'typescript', 'postgresql', 'coolify'],
-    link: 'https://bara.lukapps.fr'
+    link: 'https://bara.lukapps.fr',
+    linkLabel: t('projects.bara.link')
   }
 ];
 ---
@@ -22,17 +38,17 @@ const projects = [
   <div class="container">
     <h2 class="section-title">{t('projects.title')}</h2>
     <div class="projects-list">
-      {projects.map(project => (
+      {projects.map((project: Project) => (
         <article class="project">
           <div class="project-header">
             <h3 class="project-title">{project.title}</h3>
             <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
-              {t('projects.bara.link')} →
+              {project.linkLabel} →
             </a>
           </div>
           <p class="project-description">{project.description}</p>
           <div class="project-tags">
-            {project.tags.map(tag => (
+            {project.tags.map((tag: string) => (
               <span class="tag">{tag}</span>
             ))}
           </div>
@@ -136,20 +152,20 @@ const projects = [
 </style>
 
 <script>
-  const observerOptions = {
+  const observerOptions: IntersectionObserverInit = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry: IntersectionObserverEntry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.project').forEach(project => {
+  document.querySelectorAll('.project').forEach((project: Element) => {
     observer.observe(project);
   });
 </script>
