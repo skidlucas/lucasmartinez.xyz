@@ -18,9 +18,16 @@ const t = useTranslations(lang);
 
 const projects: Project[] = [
   {
+    title: t('projects.hilo.title'),
+    description: t('projects.hilo.description'),
+    tags: ['effect', 'typescript', 'cloudflare workers', 'solidjs', 'browser extension'],
+    link: 'https://hiloapp.dev',
+    linkLabel: t('projects.hilo.link')
+  },
+  {
     title: t('projects.dropthing.title'),
     description: t('projects.dropthing.description'),
-    tags: ['effect', 'typescript'],
+    tags: ['effect', 'typescript', 'hono', 'coolify'],
     link: 'https://dropthing.lukapps.fr',
     linkLabel: t('projects.dropthing.link')
   },
