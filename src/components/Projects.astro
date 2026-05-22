@@ -46,7 +46,7 @@ const projects: Project[] = [
     <h2 class="section-title">{t('projects.title')}</h2>
     <div class="projects-list">
       {projects.map((project: Project) => (
-        <article class="project">
+        <article class="project" data-reveal>
           <div class="project-header">
             <h3 class="project-title">{project.title}</h3>
             <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
@@ -66,19 +66,6 @@ const projects: Project[] = [
 </section>
 
 <style>
-  .section {
-    padding: 8rem 0;
-  }
-
-  .section-title {
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--fg-muted);
-    margin-bottom: 3rem;
-    font-weight: 400;
-  }
-
   .projects-list {
     display: flex;
     flex-direction: column;
@@ -147,32 +134,9 @@ const projects: Project[] = [
   }
 
   @media (max-width: 768px) {
-    .section {
-      padding: 5rem 0;
-    }
-
     .project-header {
       flex-direction: column;
       align-items: flex-start;
     }
   }
 </style>
-
-<script>
-  const observerOptions: IntersectionObserverInit = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry: IntersectionObserverEntry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.project').forEach((project: Element) => {
-    observer.observe(project);
-  });
-</script>

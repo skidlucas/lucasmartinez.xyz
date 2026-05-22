@@ -43,6 +43,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
+    <script>
+      const observerOptions: IntersectionObserverInit = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('[data-reveal]').forEach((element: Element) => {
+        observer.observe(element);
+      });
+    </script>
   </body>
 </html>
 
@@ -117,9 +135,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     padding: 0 2rem;
   }
 
+  .section {
+    padding: 8rem 0;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+    margin-bottom: 3rem;
+    font-weight: 400;
+  }
+
   @media (max-width: 768px) {
     .container {
       padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 5rem 0;
     }
   }
 
