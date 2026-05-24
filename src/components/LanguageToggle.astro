@@ -1,12 +1,12 @@
 ---
-import { languages, type Language } from '../i18n/translations';
+import { languageLinks, type LanguageLink } from '../i18n/translations';
 
 interface Props {
-  currentLang: Language;
+  currentLang: LanguageLink;
 }
 
 const { currentLang }: Props = Astro.props;
-const otherLangs = Object.keys(languages).filter(lang => lang !== currentLang) as Language[];
+const otherLangs = Object.keys(languageLinks).filter(lang => lang !== currentLang) as LanguageLink[];
 
 const langLabels: Record<string, string> = {
   en: 'EN',
@@ -15,19 +15,19 @@ const langLabels: Record<string, string> = {
 };
 
 // Simple routing for homepage only (EN <-> FR, + KR easter egg)
-function getLangPath(targetLang: Language): string {
+function getLangPath(targetLang: LanguageLink): string {
   if (targetLang === 'en') return '/';
   return `/${targetLang}/`;
 }
 ---
 
 <div class="language-toggle">
-  {otherLangs.map((lang: Language) => (
+  {otherLangs.map((lang: LanguageLink) => (
     <a
       href={getLangPath(lang)}
       class="lang-link"
       data-lang={lang}
-      aria-label={languages[lang]}
+      aria-label={languageLinks[lang]}
     >
       {langLabels[lang]}
     </a>

@@ -1,51 +1,21 @@
 ---
 import { useTranslations, type Language } from '../i18n/translations';
+import { getProjects } from '../data/profile';
 
 interface Props {
   lang: Language;
 }
 
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  link: string;
-  linkLabel: string;
-}
-
 const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
-
-const projects: Project[] = [
-  {
-    title: t('projects.hilo.title'),
-    description: t('projects.hilo.description'),
-    tags: ['effect', 'typescript', 'cloudflare workers', 'solidjs', 'browser extension'],
-    link: 'https://hiloapp.dev',
-    linkLabel: t('projects.hilo.link')
-  },
-  {
-    title: t('projects.dropthing.title'),
-    description: t('projects.dropthing.description'),
-    tags: ['effect', 'typescript', 'hono', 'coolify'],
-    link: 'https://dropthing.lukapps.fr',
-    linkLabel: t('projects.dropthing.link')
-  },
-  {
-    title: t('projects.bara.title'),
-    description: t('projects.bara.description'),
-    tags: ['react', 'nestjs', 'typescript', 'postgresql', 'coolify'],
-    link: 'https://bara.lukapps.fr',
-    linkLabel: t('projects.bara.link')
-  }
-];
+const projects = getProjects(t);
 ---
 
 <section id="projects" class="section">
   <div class="container">
     <h2 class="section-title">{t('projects.title')}</h2>
     <div class="projects-list">
-      {projects.map((project: Project) => (
+      {projects.map((project) => (
         <article class="project" data-reveal>
           <div class="project-header">
             <h3 class="project-title">{project.title}</h3>

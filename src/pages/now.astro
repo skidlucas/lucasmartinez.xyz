@@ -1,24 +1,17 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
-import BackButton from '../components/BackButton.astro';
-import Footer from '../components/Footer.astro';
+import SubPageShell from '../layouts/SubPageShell.astro';
 import { useTranslations } from '../i18n/translations';
 
 const lang = 'en';
 const t = useTranslations(lang);
 ---
 
-<BaseLayout
+<SubPageShell
   title={`${t('now.title')} — ${t('hero.name')}`}
   description={t('now.subtitle')}
   lang={lang}
 >
-  <BackButton href="/" />
-  <ThemeToggle />
-
-  <main>
-    <section class="now-section">
+  <section class="now-section">
       <div class="container">
         <h1>{t('now.title')}</h1>
         <p class="subtitle">{t('now.subtitle')}</p>
@@ -62,16 +55,10 @@ const t = useTranslations(lang);
           </p>
         </div>
       </div>
-    </section>
-    <Footer lang={lang} />
-  </main>
-</BaseLayout>
+  </section>
+</SubPageShell>
 
 <style>
-  main {
-    min-height: 100vh;
-  }
-
   .now-section {
     padding: 6rem 2rem;
     max-width: 800px;

@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Language } from '../i18n/translations';
+import { skills } from '../data/profile';
 
 interface Props {
   lang: Language;
@@ -7,11 +8,6 @@ interface Props {
 
 const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
-
-const skills: string[] = [
-  "javascript", "typescript", "nestjs", "react",
-  "postgresql", "aws", "git", "datadog", "ci/cd"
-];
 ---
 
 <section id="about" class="section">
@@ -21,7 +17,7 @@ const skills: string[] = [
       <p>{t('about.paragraph1')}</p>
       <p>{t('about.paragraph2')}</p>
       <div class="skills">
-        {skills.map((skill: string) => (
+        {skills.map((skill) => (
           <span class="skill">{skill}</span>
         ))}
       </div>

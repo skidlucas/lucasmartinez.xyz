@@ -1,63 +1,21 @@
 ---
 import { useTranslations, type Language } from '../i18n/translations';
+import { getExperiences } from '../data/profile';
 
 interface Props {
   lang: Language;
 }
 
-interface Experience {
-  title: string;
-  company: string;
-  workmode: string;
-  period: string;
-  description: string;
-  tags: string[];
-}
-
 const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
-
-const experiences: Experience[] = [
-  {
-    title: t('experiences.graneet.title'),
-    company: t('experiences.graneet.company'),
-    workmode: t('experiences.graneet.workmode'),
-    period: t('experiences.graneet.period'),
-    description: t('experiences.graneet.description'),
-    tags: ['nestjs', 'react', 'typescript', 'postgresql', 'aws', 'ci/cd']
-  },
-  {
-    title: t('experiences.lizee.title'),
-    company: t('experiences.lizee.company'),
-    workmode: t('experiences.lizee.workmode'),
-    period: t('experiences.lizee.period'),
-    description: t('experiences.lizee.description'),
-    tags: ['nestjs', 'react', 'typescript', 'postgresql', 'ci/cd']
-  },
-  {
-    title: t('experiences.mesdocteurs.title'),
-    company: t('experiences.mesdocteurs.company'),
-    workmode: t('experiences.mesdocteurs.workmode'),
-    period: t('experiences.mesdocteurs.period'),
-    description: t('experiences.mesdocteurs.description'),
-    tags: ['angular', 'nodejs', 'postgresql', 'ci/cd']
-  },
-  {
-    title: t('experiences.sap.title'),
-    company: t('experiences.sap.company'),
-    workmode: t('experiences.sap.workmode'),
-    period: t('experiences.sap.period'),
-    description: t('experiences.sap.description'),
-    tags: ['python', 'research']
-  }
-];
+const experiences = getExperiences(t);
 ---
 
 <section id="experiences" class="section">
   <div class="container">
     <h2 class="section-title">{t('experiences.title')}</h2>
     <div class="experiences-list">
-      {experiences.map((exp: Experience) => (
+      {experiences.map((exp) => (
         <article class="experiences" data-reveal>
           <div class="experiences-header">
             <div class="experiences-title-group">

@@ -1,10 +1,6 @@
 ---
 import { useTranslations, type Language } from '../i18n/translations';
-
-interface Link {
-  label: string;
-  url: string;
-}
+import { getContactLinks } from '../data/profile';
 
 interface Props {
   lang: Language;
@@ -12,12 +8,7 @@ interface Props {
 
 const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
-
-const links: Link[] = [
-  { label: t('contact.email'), url: "mailto:lucasmartinez.it@gmail.com" },
-  { label: t('contact.github'), url: "https://github.com/skidlucas" },
-  { label: t('contact.linkedin'), url: "https://www.linkedin.com/in/lucas-martinez-462336a7" }
-];
+const links = getContactLinks(t);
 ---
 
 <section id="contact" class="section">
@@ -26,7 +17,7 @@ const links: Link[] = [
     <div class="contact-content">
       <p class="contact-intro">{t('contact.intro')}</p>
       <div class="contact-links">
-        {links.map((link: Link) => (
+        {links.map((link) => (
           <a
             href={link.url}
             class="contact-link"

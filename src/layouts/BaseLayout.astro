@@ -40,26 +40,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Robots -->
     <meta name="robots" content="index, follow" />
+
+    <!--
+      Critical theme bootstrap.
+      Keep this inline in <head> so the browser applies the saved/system theme
+      before first paint. The ThemeToggle module only wires the click handler.
+    -->
+    <script is:inline>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          // If storage is unavailable, leave the default light theme in place.
+        }
+      })();
+    </script>
   </head>
   <body>
     <slot />
     <script>
-      const observerOptions: IntersectionObserverInit = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('[data-reveal]').forEach((element: Element) => {
-        observer.observe(element);
-      });
+      import '../scripts/reveal';
     </script>
   </body>
 </html>

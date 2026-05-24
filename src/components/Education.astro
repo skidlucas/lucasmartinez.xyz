@@ -1,40 +1,21 @@
 ---
 import { useTranslations, type Language } from '../i18n/translations';
+import { getEducation } from '../data/profile';
 
 interface Props {
   lang: Language;
 }
 
-interface EducationItem {
-  degree: string;
-  school: string;
-  period: string;
-  specialization?: string;
-}
-
 const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
-
-const education: EducationItem[] = [
-  {
-    degree: t('education.polytech.degree'),
-    school: t('education.polytech.school'),
-    period: t('education.polytech.period'),
-    specialization: t('education.polytech.specialization')
-  },
-  {
-    degree: t('education.iut.degree'),
-    school: t('education.iut.school'),
-    period: t('education.iut.period')
-  }
-];
+const education = getEducation(t);
 ---
 
 <section id="education" class="section">
   <div class="container">
     <h2 class="section-title">{t('education.title')}</h2>
     <div class="education-list">
-      {education.map((edu: EducationItem) => (
+      {education.map((edu) => (
         <article class="education-item" data-reveal>
           <div class="education-header">
             <div class="education-title-group">

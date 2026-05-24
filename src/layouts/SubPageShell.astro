@@ -1,0 +1,41 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import BackButton from '../components/BackButton.astro';
+import Footer from '../components/Footer.astro';
+import type { Language } from '../i18n/translations';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Language;
+  backHref?: string;
+  backLabel?: string;
+  showFooter?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  backHref = '/',
+  backLabel,
+  showFooter = true,
+}: Props = Astro.props;
+---
+
+<BaseLayout title={title} description={description} lang={lang}>
+  <BackButton href={backHref} label={backLabel} />
+  <ThemeToggle />
+
+  <main>
+    <slot />
+    {showFooter && <Footer lang={lang} />}
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    min-height: 100vh;
+  }
+</style>

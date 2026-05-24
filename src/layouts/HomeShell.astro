@@ -1,0 +1,37 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LanguageToggle from '../components/LanguageToggle.astro';
+import KonamiCode from '../components/KonamiCode.astro';
+import Footer from '../components/Footer.astro';
+import type { Language } from '../i18n/translations';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Language;
+}
+
+const { title, description, lang }: Props = Astro.props;
+---
+
+<BaseLayout title={title} description={description} lang={lang}>
+  <KonamiCode />
+  <ThemeToggle />
+  <LanguageToggle currentLang={lang} />
+
+  <main>
+    <slot />
+    <Footer lang={lang} />
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    min-height: 100vh;
+  }
+</style>
+
+<script>
+  import '../scripts/smoothAnchors';
+</script>
