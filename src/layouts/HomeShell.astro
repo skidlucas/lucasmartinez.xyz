@@ -15,7 +15,15 @@ interface Props {
 const { title, description, lang }: Props = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} lang={lang}>
+<BaseLayout
+  title={title}
+  description={description}
+  lang={lang}
+  alternates={[
+    { lang: 'en', href: '/' },
+    { lang: 'fr', href: '/fr/' },
+  ]}
+>
   <KonamiCode />
   <ThemeToggle />
   <LanguageToggle currentLang={lang} />
