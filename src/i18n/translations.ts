@@ -14,7 +14,14 @@ export const languageLinks = {
 
 export const defaultLang = "en";
 
-export const translations = {
+const defineTranslations = <
+	TDefault extends Record<string, string>,
+	TTranslations extends Record<string, Partial<Record<keyof TDefault, string>>>,
+>(
+	translations: TTranslations & { en: TDefault },
+) => translations;
+
+export const translations = defineTranslations({
 	en: {
 		"nav.home": "home",
 		"nav.about": "about",
@@ -135,8 +142,9 @@ export const translations = {
 		"nav.contact": "contact",
 
 		"hero.name": "lucas martinez",
-		"hero.title": "software engineer",
-		"hero.tagline": "trying to be the guy you can count on to get things done",
+		"hero.title": "ingénieur logiciel",
+		"hero.tagline":
+			"j'essaie d'être la personne sur qui on peut compter pour faire avancer les choses",
 		"hero.location": "sud de la france",
 
 		"about.title": "à propos",
@@ -202,7 +210,7 @@ export const translations = {
 
 		"footer.copyright": "tous droits réservés.",
 	},
-} as const;
+} as const);
 
 export type TranslationKey = keyof typeof translations.en;
 export type Language = keyof typeof languages;
@@ -219,8 +227,12 @@ export function useTranslations(lang: Language = defaultLang) {
 	};
 }
 
+export function isLanguage(value: string): value is Language {
+	return value in languages;
+}
+
 export function getLangFromUrl(url: URL): Language {
 	const [, lang] = url.pathname.split("/");
-	if (lang in translations) return lang as Language;
+	if (isLanguage(lang)) return lang;
 	return defaultLang;
 }
