@@ -8,7 +8,7 @@ my personal cv site. minimalist design, built with astro.
 - typescript
 - vanilla css
 - bun
-- deployed on coolify
+- deployed on cloudflare workers (static assets)
 
 ## dev
 

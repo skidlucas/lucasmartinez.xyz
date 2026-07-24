@@ -66,6 +66,13 @@ CSS custom properties in BaseLayout:
 Located in `public/` directory (served at root):
 - `favicon.svg`
 - `robots.txt`
+- `_headers` - security headers + cache policy (read by Cloudflare at deploy)
+
+### Deployment
+Deployed to **Cloudflare Workers** as static assets (Git-connected, auto-deploy on push to `master`):
+- Config in [wrangler.jsonc](wrangler.jsonc): `assets.directory` points to `dist/`, no SSR adapter (site stays `output: "static"`)
+- Build command: `bun run build`; deploy via `wrangler deploy`
+- `public/_headers` reproduces the security headers and asset caching previously handled by nginx
 
 ## Key Patterns
 
