@@ -35,16 +35,12 @@ Multi-language support for English (default) and French:
 - **Language availability by page**:
   - Home page (`/`): Available in English and French (`/fr/`)
   - Now page (`/now`): **English only** (no LanguageToggle shown)
-  - Stuff I Like (`/stuff-i-like`): **English only** (no LanguageToggle shown)
-  - Footer links to `/now` and `/stuff-i-like` always point to English versions regardless of current language
+  - Footer links to `/now` always point to the English version regardless of current language
 
 ### Content Management
-Uses Astro Content Collections for structured content:
-- Schema defined in [src/content/config.ts](src/content/config.ts)
-- Collection: `stuff-i-like` for curated articles/resources
-  - Schema: `title`, `url`, `tags`, `image?`, `date`, `lang`
-  - Content files in `src/content/stuff-i-like/` (English only)
-  - Dynamic routing via [src/pages/stuff-i-like/[...slug].astro](src/pages/stuff-i-like/[...slug].astro)
+No Astro Content Collections. The site is fully page-driven; all copy lives in [src/i18n/translations.ts](src/i18n/translations.ts) and [src/data/profile.ts](src/data/profile.ts).
+
+The `stuff-i-like` and `snippets` collections (and their WIP pages) were removed before open-sourcing the repo. `translations.ts` still carries unused `stuffILike.*` / `snippets.*` / `nav.stuffILike` / `nav.snippets` keys should those pages ever come back.
 
 ### Component Architecture
 - **Layout**: [src/layouts/BaseLayout.astro](src/layouts/BaseLayout.astro) - SEO, meta tags, global styles, theme system
@@ -52,7 +48,7 @@ Uses Astro Content Collections for structured content:
 - **UI Components**:
   - ThemeToggle (dark/light mode) - shown on all pages
   - LanguageToggle - only shown on home page
-  - BackButton - reusable component for navigation (used on now and stuff-i-like pages)
+  - BackButton - reusable component for navigation (used on the now page)
   - KonamiCode easter egg
 - **Styling**: Global CSS custom properties for theming, monospace font (Courier New)
 
@@ -78,8 +74,6 @@ Deployed to **Cloudflare Workers** as static assets (Git-connected, auto-deploy 
 
 **Adding new translations**: Update [src/i18n/translations.ts](src/i18n/translations.ts) for all supported languages (en, fr, kr)
 
-**Creating content**: Add markdown files to `src/content/stuff-i-like/[lang]/` with required frontmatter matching schema
-
 **Styling conventions**: Use CSS custom properties for theme-aware colors; maintain minimalist, monochrome, monospace aesthetic throughout
 
 **Language routing**: English at root (`/`), French at `/fr/`. Note: `/kr/` Korean language is just an easter egg (no translations needed)
@@ -87,4 +81,4 @@ Deployed to **Cloudflare Workers** as static assets (Git-connected, auto-deploy 
 **BackButton component**: Reusable navigation component at [src/components/BackButton.astro](src/components/BackButton.astro)
 - Props: `href` (required), `label` (optional, defaults to "← home")
 - Fixed positioning in top-left, z-index 50 (below LanguageToggle which is 100)
-- Used on `/now` and `/stuff-i-like` pages
+- Used on the `/now` page

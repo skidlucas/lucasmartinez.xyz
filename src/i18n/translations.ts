@@ -27,8 +27,6 @@ export const translations = defineTranslations({
 		"nav.about": "about",
 		"nav.experiences": "experiences",
 		"nav.projects": "projects",
-		"nav.stuffILike": "stuff i like",
-		"nav.snippets": "snippets",
 		"nav.now": "now",
 		"nav.contact": "contact",
 
@@ -100,17 +98,6 @@ export const translations = defineTranslations({
 
 		"footer.copyright": "all rights reserved.",
 
-		"stuffILike.title": "stuff i like",
-		"stuffILike.description":
-			"articles, videos, books, and other resources that inspire me",
-		"stuffILike.readMore": "read more",
-		"stuffILike.visitLink": "visit",
-
-		"snippets.title": "snippets",
-		"snippets.description": "code/text snippets that i found useful",
-		"snippets.readMore": "read more",
-		"snippets.visitLink": "visit",
-
 		"now.title": "now",
 		"now.subtitle": "what i'm currently working on",
 		"now.lastUpdated": "last updated",
@@ -136,8 +123,6 @@ export const translations = defineTranslations({
 		"nav.about": "à propos",
 		"nav.experiences": "expériences",
 		"nav.projects": "projets",
-		"nav.stuffILike": "stuff i like",
-		"nav.snippets": "snippets",
 		"nav.now": "now",
 		"nav.contact": "contact",
 
