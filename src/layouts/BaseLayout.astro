@@ -89,6 +89,14 @@ const alternateLocales = alternates.filter((alternate) => alternate.lang !== lan
         }
       })();
     </script>
+    <noscript>
+      <style>
+        [data-reveal] {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <slot />
