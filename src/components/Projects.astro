@@ -109,4 +109,12 @@ const projects = getProjects(t);
       align-items: flex-start;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 </style>

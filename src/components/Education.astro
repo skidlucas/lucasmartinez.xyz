@@ -119,4 +119,12 @@ const education = getEducation(t);
       gap: 0.5rem;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .education-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 </style>

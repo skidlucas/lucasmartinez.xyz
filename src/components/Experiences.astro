@@ -136,4 +136,12 @@ const experiences = getExperiences(t);
       gap: 0.5rem;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .experiences {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 </style>
