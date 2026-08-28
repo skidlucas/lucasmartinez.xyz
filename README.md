@@ -15,10 +15,12 @@ my personal cv site. minimalist design, built with astro.
 ```sh
 bun install
 bun dev
+bun run check   # typecheck
+bun run build   # production build
 ```
 
 ## i18n
 
 - `/` - english
 - `/fr/` - french
-- `/kr/` - korean
+- `/kr/` - easter egg (noindex)
