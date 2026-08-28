@@ -1,0 +1,45 @@
+---
+import SubPageShell from '../layouts/SubPageShell.astro';
+import { useTranslations } from '../i18n/translations';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<SubPageShell
+  title={`${t('notFound.title')} — ${t('hero.name')}`}
+  description={t('notFound.description')}
+  lang={lang}
+  noindex
+  showFooter={false}
+>
+  <section class="not-found">
+    <div class="container">
+      <h1 class="fade-in">404</h1>
+      <p class="subtitle fade-in stagger-1">{t('notFound.description')}</p>
+    </div>
+  </section>
+</SubPageShell>
+
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--fg-muted);
+  }
+</style>

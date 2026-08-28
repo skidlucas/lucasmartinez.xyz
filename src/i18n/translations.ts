@@ -117,6 +117,8 @@ export const translations = defineTranslations({
 		"now.personal.content":
 			"recovering from a knee injury, soon training for a race in marseille (21km, 500m d+)",
 		"now.inspired.title": "inspired by",
+		"notFound.title": "not found",
+		"notFound.description": "this page doesn't exist.",
 	},
 	fr: {
 		"nav.home": "accueil",
