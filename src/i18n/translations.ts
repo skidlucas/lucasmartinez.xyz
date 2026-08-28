@@ -23,17 +23,11 @@ const defineTranslations = <
 
 export const translations = defineTranslations({
 	en: {
-		"nav.home": "home",
-		"nav.about": "about",
-		"nav.experiences": "experiences",
-		"nav.projects": "projects",
 		"nav.now": "now",
-		"nav.contact": "contact",
 
 		"hero.name": "lucas martinez",
 		"hero.title": "software engineer",
 		"hero.tagline": "trying to be the guy you can count on to get things done",
-		"hero.location": "south of france",
 
 		"about.title": "about",
 		"about.paragraph1":
@@ -45,7 +39,7 @@ export const translations = defineTranslations({
 		"experiences.graneet.title": "senior software engineer",
 		"experiences.graneet.company": "graneet",
 		"experiences.graneet.workmode": "remote",
-		"experiences.graneet.period": "2024 - present",
+		"experiences.graneet.period": "2024 – present",
 		"experiences.graneet.description":
 			"building erp tools for construction companies to replace excel chaos with real-time project management.",
 		"experiences.lizee.title": "software engineer → lead",
@@ -121,18 +115,12 @@ export const translations = defineTranslations({
 		"notFound.description": "this page doesn't exist.",
 	},
 	fr: {
-		"nav.home": "accueil",
-		"nav.about": "à propos",
-		"nav.experiences": "expériences",
-		"nav.projects": "projets",
 		"nav.now": "now",
-		"nav.contact": "contact",
 
 		"hero.name": "lucas martinez",
 		"hero.title": "ingénieur logiciel",
 		"hero.tagline":
 			"j'essaie d'être la personne sur qui on peut compter pour faire avancer les choses",
-		"hero.location": "sud de la france",
 
 		"about.title": "à propos",
 		"about.paragraph1":
@@ -144,7 +132,7 @@ export const translations = defineTranslations({
 		"experiences.graneet.title": "senior software engineer",
 		"experiences.graneet.company": "graneet",
 		"experiences.graneet.workmode": "télétravail",
-		"experiences.graneet.period": "2024 - aujourd'hui",
+		"experiences.graneet.period": "2024 – aujourd'hui",
 		"experiences.graneet.description":
 			"construction d'un logiciel de gestion pour les entreprises du bâtiment afin de remplacer le chaos excel par de la gestion de projet en temps réel.",
 		"experiences.lizee.title": "software engineer → lead",
@@ -212,14 +200,4 @@ export function useTranslations(lang: Language = defaultLang) {
 		>;
 		return langTranslations[key] || defaultTranslations[key];
 	};
-}
-
-export function isLanguage(value: string): value is Language {
-	return value in languages;
-}
-
-export function getLangFromUrl(url: URL): Language {
-	const [, lang] = url.pathname.split("/");
-	if (isLanguage(lang)) return lang;
-	return defaultLang;
 }
