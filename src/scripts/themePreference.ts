@@ -1,19 +1,5 @@
-const theme = (() => {
-	if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-		return localStorage.getItem("theme");
-	}
-
-	if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		return "dark";
-	}
-
-	return "light";
-})();
-
-if (theme === "dark") {
-	document.documentElement.setAttribute("data-theme", "dark");
-}
-
+// The theme itself is applied before first paint by the inline bootstrap in
+// src/layouts/BaseLayout.astro. This module only wires the toggle button.
 const handleToggleClick = () => {
 	const element = document.documentElement;
 	const isDark = element.getAttribute("data-theme") === "dark";
