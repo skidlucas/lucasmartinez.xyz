@@ -12,6 +12,7 @@ interface Props {
   backHref?: string;
   backLabel?: string;
   showFooter?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -21,10 +22,11 @@ const {
   backHref = '/',
   backLabel,
   showFooter = true,
+  noindex = false,
 }: Props = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} lang={lang}>
+<BaseLayout title={title} description={description} lang={lang} noindex={noindex}>
   <BackButton href={backHref} label={backLabel} />
   <ThemeToggle />
 
