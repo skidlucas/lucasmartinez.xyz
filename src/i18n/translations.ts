@@ -83,6 +83,13 @@ export const translations = defineTranslations({
 		"projects.bara.description":
 			"patient and billing management system. built for my partner, mostly a learning project for me to explore technologies.",
 		"projects.bara.link": "visit",
+		"projects.pasta.title": "pasta",
+		"projects.pasta.description":
+			"native macos app to set text aside in one keystroke: things to tell the AI later, answers worth keeping. fully vibe coded, for a need i had every single day.",
+		"projects.re7.title": "re7",
+		"projects.re7.description":
+			"recipe manager for the household. all my own recipes in one place, in the same format. fully vibe coded, purely to scratch a personal itch.",
+		"projects.re7.link": "visit",
 
 		"contact.title": "contact",
 		"contact.intro": "feel free to reach out.",
@@ -95,7 +102,7 @@ export const translations = defineTranslations({
 		"now.title": "now",
 		"now.subtitle": "what i'm currently working on",
 		"now.lastUpdated": "last updated",
-		"now.lastUpdatedAt": "may 2026",
+		"now.lastUpdatedAt": "august 2026",
 		"now.work.title": "work",
 		"now.work.content": "building new features at graneet",
 		"now.learning.title": "learning",
@@ -106,7 +113,7 @@ export const translations = defineTranslations({
 		"now.reading.content": "slam dunk, the will of the many",
 		"now.projects.title": "side projects",
 		"now.projects.content":
-			"hilo currently, dropthing and bara from time to time",
+			"jumping around my personal projects, none in particular",
 		"now.personal.title": "personal",
 		"now.personal.content":
 			"recovering from a knee injury, soon training for a race in marseille (21km, 500m d+)",
@@ -176,6 +183,13 @@ export const translations = defineTranslations({
 		"projects.bara.description":
 			"système de gestion de patientèle et de facturation. créé pour ma compagne, principalement un projet pédagogique pour explorer des techno",
 		"projects.bara.link": "visiter",
+		"projects.pasta.title": "pasta",
+		"projects.pasta.description":
+			"app macos native pour mettre un texte de côté en un raccourci : des trucs à dire à l'IA plus tard, des réponses qui valent le coup d'être gardées. entièrement vibecodé, pour un besoin que j'avais tous les jours.",
+		"projects.re7.title": "re7",
+		"projects.re7.description":
+			"gestion de recettes pour le foyer. toutes mes recettes au même endroit, avec le même format. entièrement vibecodé, uniquement pour un besoin perso.",
+		"projects.re7.link": "visiter",
 
 		"contact.title": "contact",
 		"contact.intro": "n'hésitez pas à me contacter.",

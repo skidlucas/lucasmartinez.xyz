@@ -152,19 +152,45 @@ const projects = [
 			linkLabel: "projects.bara.link",
 		},
 	},
+	{
+		id: "pasta",
+		tags: ["swift", "swiftui", "macos", "sqlite"],
+		copy: {
+			title: "projects.pasta.title",
+			description: "projects.pasta.description",
+		},
+	},
+	{
+		id: "re7",
+		tags: [
+			"effect",
+			"typescript",
+			"tanstack start",
+			"cloudflare workers",
+			"d1",
+		],
+		link: "https://re7.mtnz.app",
+		copy: {
+			title: "projects.re7.title",
+			description: "projects.re7.description",
+			linkLabel: "projects.re7.link",
+		},
+	},
 ] as const satisfies ReadonlyArray<{
 	id: string;
 	tags: readonly string[];
-	link: string;
-	copy: LocalizedFields<"title" | "description" | "linkLabel">;
+	link?: string;
+	copy: LocalizedFields<"title" | "description"> &
+		Partial<LocalizedFields<"linkLabel">>;
 }>;
 
 export function getProjects(t: Translator) {
 	return projects.map(({ copy, ...project }) => ({
 		...project,
+		link: "link" in project ? project.link : undefined,
 		title: t(copy.title),
 		description: t(copy.description),
-		linkLabel: t(copy.linkLabel),
+		linkLabel: "linkLabel" in copy ? t(copy.linkLabel) : undefined,
 	}));
 }
 
