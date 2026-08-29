@@ -71,6 +71,13 @@ export const translations = defineTranslations({
 		"education.iut.period": "2012 – 2014",
 
 		"projects.title": "projects",
+		"projects.pasta.title": "pasta",
+		"projects.pasta.description":
+			"native macos app to set text aside in one keystroke: things to tell the AI later, answers worth keeping. fully vibe coded, for a need i had every single day.",
+		"projects.re7.title": "re7",
+		"projects.re7.description":
+			"recipe manager for the household. all my own recipes in one place, in the same format. fully vibe coded, purely to scratch a personal itch.",
+		"projects.re7.link": "visit",
 		"projects.hilo.title": "hilo",
 		"projects.hilo.description":
 			"browser extension that explains any highlighted text with AI. select text on a page, get a streamed contextual explanation without leaving the tab.",
@@ -83,13 +90,6 @@ export const translations = defineTranslations({
 		"projects.bara.description":
 			"patient and billing management system. built for my partner, mostly a learning project for me to explore technologies.",
 		"projects.bara.link": "visit",
-		"projects.pasta.title": "pasta",
-		"projects.pasta.description":
-			"native macos app to set text aside in one keystroke: things to tell the AI later, answers worth keeping. fully vibe coded, for a need i had every single day.",
-		"projects.re7.title": "re7",
-		"projects.re7.description":
-			"recipe manager for the household. all my own recipes in one place, in the same format. fully vibe coded, purely to scratch a personal itch.",
-		"projects.re7.link": "visit",
 
 		"contact.title": "contact",
 		"contact.intro": "feel free to reach out.",
@@ -171,6 +171,13 @@ export const translations = defineTranslations({
 		"education.iut.period": "2012 – 2014",
 
 		"projects.title": "projets",
+		"projects.pasta.title": "pasta",
+		"projects.pasta.description":
+			"app macos native pour mettre un texte de côté en un raccourci : des trucs à dire à l'IA plus tard, des réponses qui valent le coup d'être gardées. entièrement vibecodé, pour un besoin que j'avais tous les jours.",
+		"projects.re7.title": "re7",
+		"projects.re7.description":
+			"gestion de recettes pour le foyer. toutes mes recettes au même endroit, avec le même format. entièrement vibecodé, uniquement pour un besoin perso.",
+		"projects.re7.link": "visiter",
 		"projects.hilo.title": "hilo",
 		"projects.hilo.description":
 			"extension navigateur qui explique tout texte surligné avec de l'IA. sélectionnez du texte et obtenez une explication contextuelle en streaming sans quitter l'onglet.",
@@ -183,13 +190,6 @@ export const translations = defineTranslations({
 		"projects.bara.description":
 			"système de gestion de patientèle et de facturation. créé pour ma compagne, principalement un projet pédagogique pour explorer des techno",
 		"projects.bara.link": "visiter",
-		"projects.pasta.title": "pasta",
-		"projects.pasta.description":
-			"app macos native pour mettre un texte de côté en un raccourci : des trucs à dire à l'IA plus tard, des réponses qui valent le coup d'être gardées. entièrement vibecodé, pour un besoin que j'avais tous les jours.",
-		"projects.re7.title": "re7",
-		"projects.re7.description":
-			"gestion de recettes pour le foyer. toutes mes recettes au même endroit, avec le même format. entièrement vibecodé, uniquement pour un besoin perso.",
-		"projects.re7.link": "visiter",
 
 		"contact.title": "contact",
 		"contact.intro": "n'hésitez pas à me contacter.",
