@@ -85,7 +85,7 @@ export const translations = defineTranslations({
 		"projects.dropthing.title": "dropthing",
 		"projects.dropthing.description":
 			"file and snippet sharing project. mostly a learning playground and an excuse to learn Effect.",
-		"projects.dropthing.link": "visit",
+		"projects.dropthing.link": "source",
 		"projects.bara.title": "bara",
 		"projects.bara.description":
 			"patient and billing management system. built for my partner, mostly a learning project for me to explore technologies.",
@@ -185,7 +185,7 @@ export const translations = defineTranslations({
 		"projects.dropthing.title": "dropthing",
 		"projects.dropthing.description":
 			"projet pour partager des fichiers, des snippets, etc. surtout un projet d'apprentissage et un prétexte pour apprendre Effect.",
-		"projects.dropthing.link": "visiter",
+		"projects.dropthing.link": "code",
 		"projects.bara.title": "bara",
 		"projects.bara.description":
 			"système de gestion de patientèle et de facturation. créé pour ma compagne, principalement un projet pédagogique pour explorer des techno",

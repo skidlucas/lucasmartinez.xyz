@@ -158,8 +158,8 @@ const projects = [
 	},
 	{
 		id: "dropthing",
-		tags: ["effect", "typescript", "hono", "coolify"],
-		link: "https://dropthing.lukapps.fr",
+		tags: ["effect", "typescript", "hono"],
+		link: "https://github.com/skidlucas/dropthing",
 		copy: {
 			title: "projects.dropthing.title",
 			description: "projects.dropthing.description",
@@ -168,8 +168,8 @@ const projects = [
 	},
 	{
 		id: "bara",
-		tags: ["react", "nestjs", "typescript", "postgresql", "coolify"],
-		link: "https://bara.lukapps.fr",
+		tags: ["effect", "typescript", "react", "cloudflare workers", "d1"],
+		link: "https://bara.mtnz.app",
 		copy: {
 			title: "projects.bara.title",
 			description: "projects.bara.description",
