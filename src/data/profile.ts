@@ -158,8 +158,8 @@ const projects = [
 	},
 	{
 		id: "dropthing",
-		tags: ["effect", "typescript", "hono"],
-		link: "https://github.com/skidlucas/dropthing",
+		tags: ["effect", "typescript", "hono", "cloudflare workers", "d1", "r2"],
+		link: "https://dropthing.mtnz.app",
 		copy: {
 			title: "projects.dropthing.title",
 			description: "projects.dropthing.description",
