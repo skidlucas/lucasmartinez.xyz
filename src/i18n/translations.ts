@@ -33,7 +33,7 @@ export const translations = defineTranslations({
 		"about.paragraph1":
 			"software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.",
 		"about.paragraph2":
-			"when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughter.",
+			"when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.",
 
 		"experiences.title": "experiences",
 		"experiences.graneet.title": "senior software engineer",
@@ -133,7 +133,7 @@ export const translations = defineTranslations({
 		"about.paragraph1":
 			"software engineer basé dans le sud de la france avec une préférence pour le backend. j'aime résoudre des problèmes et me sentir utile.",
 		"about.paragraph2":
-			"quand je ne code pas, tu pourras me trouver en train de courir, jouer au foot ou au padel, aux jeux vidéo, lire ou m'occuper de ma fille.",
+			"quand je ne code pas, tu pourras me trouver en train de courir, jouer au foot ou au padel, aux jeux vidéo, lire ou m'occuper de mes filles.",
 
 		"experiences.title": "expériences",
 		"experiences.graneet.title": "senior software engineer",
