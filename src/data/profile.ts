@@ -5,12 +5,13 @@ type Translator = ReturnType<typeof useTranslations>;
 type LocalizedFields<TField extends string> = Record<TField, TranslationKey>;
 
 export const skills = [
-	"javascript",
 	"typescript",
+	"effect",
 	"nestjs",
 	"react",
 	"postgresql",
 	"aws",
+	"cloudflare",
 	"git",
 	"datadog",
 	"ci/cd",
@@ -117,11 +118,27 @@ export function getEducation(t: Translator) {
 
 const projects = [
 	{
-		id: "pasta",
-		tags: ["swift", "swiftui", "macos", "sqlite"],
+		id: "hilo",
+		tags: [
+			"effect",
+			"typescript",
+			"cloudflare workers",
+			"solidjs",
+			"browser extension",
+		],
+		link: "https://hiloapp.dev",
 		copy: {
-			title: "projects.pasta.title",
-			description: "projects.pasta.description",
+			title: "projects.hilo.title",
+			description: "projects.hilo.description",
+		},
+	},
+	{
+		id: "bara",
+		tags: ["effect", "typescript", "react", "cloudflare workers", "d1"],
+		link: "https://bara.mtnz.app",
+		copy: {
+			title: "projects.bara.title",
+			description: "projects.bara.description",
 		},
 	},
 	{
@@ -137,23 +154,14 @@ const projects = [
 		copy: {
 			title: "projects.re7.title",
 			description: "projects.re7.description",
-			linkLabel: "projects.re7.link",
 		},
 	},
 	{
-		id: "hilo",
-		tags: [
-			"effect",
-			"typescript",
-			"cloudflare workers",
-			"solidjs",
-			"browser extension",
-		],
-		link: "https://hiloapp.dev",
+		id: "pasta",
+		tags: ["swift", "swiftui", "macos", "sqlite"],
 		copy: {
-			title: "projects.hilo.title",
-			description: "projects.hilo.description",
-			linkLabel: "projects.hilo.link",
+			title: "projects.pasta.title",
+			description: "projects.pasta.description",
 		},
 	},
 	{
@@ -163,25 +171,13 @@ const projects = [
 		copy: {
 			title: "projects.dropthing.title",
 			description: "projects.dropthing.description",
-			linkLabel: "projects.dropthing.link",
-		},
-	},
-	{
-		id: "bara",
-		tags: ["effect", "typescript", "react", "cloudflare workers", "d1"],
-		link: "https://bara.mtnz.app",
-		copy: {
-			title: "projects.bara.title",
-			description: "projects.bara.description",
-			linkLabel: "projects.bara.link",
 		},
 	},
 ] as const satisfies ReadonlyArray<{
 	id: string;
 	tags: readonly string[];
 	link?: string;
-	copy: LocalizedFields<"title" | "description"> &
-		Partial<LocalizedFields<"linkLabel">>;
+	copy: LocalizedFields<"title" | "description">;
 }>;
 
 export function getProjects(t: Translator) {
@@ -190,7 +186,22 @@ export function getProjects(t: Translator) {
 		link: "link" in project ? project.link : undefined,
 		title: t(copy.title),
 		description: t(copy.description),
-		linkLabel: "linkLabel" in copy ? t(copy.linkLabel) : undefined,
+	}));
+}
+
+const nowItems = [
+	{ label: "now.stack.title", value: "now.stack.content" },
+	{ label: "now.work.title", value: "now.work.content" },
+	{ label: "now.learning.title", value: "now.learning.content" },
+	{ label: "now.reading.title", value: "now.reading.content" },
+	{ label: "now.projects.title", value: "now.projects.content" },
+	{ label: "now.personal.title", value: "now.personal.content" },
+] as const satisfies ReadonlyArray<LocalizedFields<"label" | "value">>;
+
+export function getNowItems(t: Translator) {
+	return nowItems.map((item) => ({
+		label: t(item.label),
+		value: t(item.value),
 	}));
 }
 

@@ -1,4 +1,5 @@
 ---
+import Footer from './Footer.astro';
 import { useTranslations, type Language } from '../i18n/translations';
 import { getContactLinks } from '../data/profile';
 
@@ -11,57 +12,40 @@ const t = useTranslations(lang);
 const links = getContactLinks(t);
 ---
 
-<section id="contact" class="section">
-  <div class="container">
-    <h2 class="section-title">{t('contact.title')}</h2>
-    <div class="contact-content">
-      <p class="contact-intro">{t('contact.intro')}</p>
-      <div class="contact-links">
-        {links.map((link) => (
-          <a
-            href={link.url}
-            class="contact-link"
-            target={link.url.startsWith('http') ? '_blank' : undefined}
-            rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-    </div>
+<section id="contact" class="contact">
+  <h2 class="section-title">{t('contact.title')}</h2>
+  <p>{t('contact.intro')}</p>
+  <div class="links">
+    {links.map((link) => (
+      <a
+        href={link.url}
+        class="link"
+        target={link.url.startsWith('http') ? '_blank' : undefined}
+        rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+  <div class="footer-wrap">
+    <Footer lang={lang} />
   </div>
 </section>
 
 <style>
-  .contact-content {
-    max-width: 600px;
-  }
-
-  .contact-intro {
-    color: var(--fg-muted);
-    margin-bottom: 2rem;
-    font-size: 1.125rem;
-  }
-
-  .contact-links {
+  .contact {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 14px;
   }
 
-  .contact-link {
-    font-size: 1.25rem;
-    display: inline-block;
-    width: fit-content;
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
   }
 
-  @media (max-width: 768px) {
-    .contact-links {
-      gap: 0.75rem;
-    }
-
-    .contact-link {
-      font-size: 1.125rem;
-    }
+  .footer-wrap {
+    margin-top: 32px;
   }
 </style>

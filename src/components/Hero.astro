@@ -7,50 +7,80 @@ interface Props {
 
 const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
+const tagline = t('hero.tagline');
 ---
 
-<section id="hero" class="hero">
-  <div class="container">
-    <h1 class="fade-in">{t('hero.name')}</h1>
-    <p class="subtitle fade-in stagger-1">{t('hero.title')}</p>
-    <p class="tagline fade-in stagger-2">{t('hero.tagline')}</p>
-  </div>
+<section id="hero" class="hero container">
+  <h1 class="page-title hero-title">{t('hero.name')}</h1>
+  <p class="page-subtitle hero-subtitle" lang="en">{t('hero.title')}</p>
+  <p class="tagline" lang="en">
+    <span class="sr-only">{tagline}</span>
+    <span aria-hidden="true" data-typed={tagline}><noscript>{tagline}</noscript></span>
+    <span class="cursor" aria-hidden="true"></span>
+  </p>
 </section>
 
 <style>
   .hero {
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
-    padding: 2rem 0;
   }
 
-  .hero h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 400;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
+  .hero-title {
+    animation: fadeUp 0.7s ease both;
   }
 
-  .subtitle {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--fg-muted);
-    margin-bottom: 0.5rem;
+  .hero-subtitle {
+    margin-top: 14px;
+    animation: fadeUp 0.7s 0.12s ease both;
   }
 
   .tagline {
-    font-size: 0.875rem;
-    color: var(--fg-muted);
-    max-width: 500px;
-    margin: 0 auto;
+    margin-top: 28px;
+    min-height: 24px;
   }
 
-  @media (max-width: 768px) {
-    .hero {
-      min-height: 100vh;
-      padding-bottom: 4rem;
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 17px;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--fg);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title,
+    .hero-subtitle {
+      animation: none;
     }
   }
 </style>
+
+<script>
+  const target = document.querySelector<HTMLElement>('[data-typed]');
+  const text = target?.dataset.typed ?? '';
+
+  if (target) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      target.textContent = text;
+    } else {
+      let index = 0;
+      const typeNext = () => {
+        index++;
+        target.textContent = text.slice(0, index);
+        if (index < text.length) setTimeout(typeNext, 40 + Math.random() * 50);
+      };
+      setTimeout(typeNext, 700);
+    }
+  }
+</script>

@@ -7,30 +7,35 @@ interface Props {
 const { href, label = '← home' }: Props = Astro.props;
 ---
 
-<a href={href} class="back-button">
-  {label}
-</a>
+<a href={href} class="back-button" data-back-button>{label}</a>
 
 <style>
   .back-button {
-    position: fixed;
-    top: 1.5rem;
-    left: 1.5rem;
-    color: var(--fg-muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: color 0.2s;
-    z-index: 50;
+    display: inline-block;
+    color: var(--fg);
+    transition: transform var(--transition);
   }
 
   .back-button:hover {
-    color: var(--fg);
+    transform: translateX(-3px);
   }
 
-  @media (max-width: 768px) {
+  @media (prefers-reduced-motion: reduce) {
     .back-button {
-      top: 1rem;
-      left: 1rem;
+      transition: none;
     }
   }
 </style>
+
+<script>
+  // Sub-pages are English-only and link back to `/` by default; send visitors
+  // who came from the French home page back to `/fr/` instead.
+  const backButton = document.querySelector<HTMLAnchorElement>('[data-back-button]');
+
+  if (backButton && document.referrer) {
+    const referrer = new URL(document.referrer);
+    if (referrer.origin === location.origin && referrer.pathname.startsWith('/fr/')) {
+      backButton.href = '/fr/';
+    }
+  }
+</script>

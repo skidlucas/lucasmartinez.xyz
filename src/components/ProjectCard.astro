@@ -1,0 +1,82 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: readonly string[];
+  link?: string;
+  visitLabel: string;
+}
+
+const { title, description, tags, link, visitLabel }: Props = Astro.props;
+const Tag = link ? 'a' : 'article';
+---
+
+<Tag
+  class:list={['project-card', { 'is-link': link }]}
+  href={link}
+  target={link ? '_blank' : undefined}
+  rel={link ? 'noopener noreferrer' : undefined}
+>
+  <div class="header">
+    <h3 class="title">{title}</h3>
+    {link && <span class="visit">{visitLabel} →</span>}
+  </div>
+  <p class="desc">{description}</p>
+  <p class="tagline">{tags.join(' · ')}</p>
+</Tag>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: border-color var(--transition), transform var(--transition);
+  }
+
+  .is-link:hover {
+    border-color: var(--fg);
+    transform: translateY(-2px);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: inherit;
+    font-weight: 700;
+  }
+
+  .visit {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+
+  .desc {
+    font-size: 13px;
+    color: var(--text-2);
+    text-wrap: pretty;
+  }
+
+  .tagline {
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card {
+      transition: none;
+    }
+
+    .is-link:hover {
+      transform: none;
+    }
+  }
+</style>

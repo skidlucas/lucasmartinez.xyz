@@ -1,4 +1,5 @@
 ---
+import TimelineRow from './TimelineRow.astro';
 import { useTranslations, type Language } from '../i18n/translations';
 import { getExperiences } from '../data/profile';
 
@@ -11,137 +12,24 @@ const t = useTranslations(lang);
 const experiences = getExperiences(t);
 ---
 
-<section id="experiences" class="section">
-  <div class="container">
-    <h2 class="section-title">{t('experiences.title')}</h2>
-    <div class="experiences-list">
-      {experiences.map((exp) => (
-        <article class="experiences" data-reveal>
-          <div class="experiences-header">
-            <div class="experiences-title-group">
-              <h3 class="experiences-title">{exp.title}</h3>
-              <span class="experiences-company">{exp.company} — {exp.workmode}</span>
-            </div>
-            <span class="experiences-period">{exp.period}</span>
-          </div>
-          <p class="experiences-description">{exp.description}</p>
-          <div class="experiences-tags">
-            {exp.tags.map((tag: string) => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        </article>
-      ))}
-    </div>
-  </div>
+<section id="experiences" class="timeline">
+  <h2 class="section-title">{t('experiences.title')}</h2>
+  {experiences.map((exp) => (
+    <TimelineRow
+      variant="inline"
+      years={exp.period}
+      title={exp.title}
+      subtitle={`${exp.company} — ${exp.workmode}`}
+      desc={exp.description}
+      tagline={exp.tags.join(' · ')}
+    />
+  ))}
 </section>
 
 <style>
-  .experiences-list {
-    position: relative;
+  .timeline {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    padding-left: 2rem;
-  }
-
-  .experiences-list::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .experiences {
-    position: relative;
-    padding-left: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-
-  .experiences.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .experiences:hover {
-    transform: translateX(4px);
-  }
-
-  .experiences-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
-    gap: 1rem;
-  }
-
-  .experiences-title-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .experiences-title {
-    font-size: 1.25rem;
-    font-weight: 400;
-  }
-
-  .experiences-company {
-    color: var(--fg-muted);
-    font-size: 0.875rem;
-  }
-
-  .experiences-period {
-    color: var(--fg-muted);
-    font-size: 0.875rem;
-    white-space: nowrap;
-  }
-
-  .experiences-description {
-    color: var(--fg-muted);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-  }
-
-  .experiences-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tag {
-    font-size: 0.75rem;
-    color: var(--fg-muted);
-    padding: 0.25rem 0.75rem;
-    border: 1px solid var(--border);
-  }
-
-  @media (max-width: 768px) {
-    .experiences-list {
-      padding-left: 1.5rem;
-    }
-
-    .experiences {
-      padding-left: 1.5rem;
-    }
-
-    .experiences-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .experiences {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    gap: 24px;
   }
 </style>

@@ -1,9 +1,12 @@
 ---
 import SubPageShell from '../layouts/SubPageShell.astro';
+import Footer from '../components/Footer.astro';
 import { useTranslations } from '../i18n/translations';
+import { getNowItems } from '../data/profile';
 
 const lang = 'en';
 const t = useTranslations(lang);
+const items = getNowItems(t);
 ---
 
 <SubPageShell
@@ -11,124 +14,112 @@ const t = useTranslations(lang);
   description={t('now.subtitle')}
   lang={lang}
 >
-  <section class="now-section">
-      <div class="container">
-        <h1>{t('now.title')}</h1>
-        <p class="subtitle">{t('now.subtitle')}</p>
-        <p class="last-updated">{t('now.lastUpdated')}: {t('now.lastUpdatedAt')}</p>
+  <div class="intro">
+    <h1 class="page-title">{t('now.title')}</h1>
+    <p class="page-subtitle">{t('now.subtitle')}</p>
+    <p class="status">
+      <span class="dot" aria-hidden="true"></span>
+      {t('now.lastUpdated')}: {t('now.lastUpdatedAt')}
+    </p>
+  </div>
 
-        <div class="now-content">
-          <div class="now-item">
-            <h2>{t('now.stack.title')}</h2>
-            <p>{t('now.stack.content')}</p>
-          </div>
-
-          <div class="now-item">
-            <h2>{t('now.work.title')}</h2>
-            <p>{t('now.work.content')}</p>
-          </div>
-
-          <div class="now-item">
-            <h2>{t('now.learning.title')}</h2>
-            <p>{t('now.learning.content')}</p>
-          </div>
-
-          <div class="now-item">
-            <h2>{t('now.reading.title')}</h2>
-            <p>{t('now.reading.content')}</p>
-          </div>
-
-          <div class="now-item">
-            <h2>{t('now.projects.title')}</h2>
-            <p>{t('now.projects.content')}</p>
-          </div>
-
-          <div class="now-item">
-            <h2>{t('now.personal.title')}</h2>
-            <p>{t('now.personal.content')}</p>
-          </div>
-        </div>
-
-        <div class="inspired">
-          <p>
-            {t('now.inspired.title')} <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer">nownownow.com</a>
-          </p>
-        </div>
+  <dl class="list">
+    {items.map((item) => (
+      <div class="row">
+        <dt>{item.label}</dt>
+        <dd>{item.value}</dd>
       </div>
-  </section>
+    ))}
+  </dl>
+
+  <Footer lang={lang}>
+    <p>
+      {t('now.inspired.title')}{' '}
+      <a href="https://nownownow.com" class="link" target="_blank" rel="noopener noreferrer">nownownow.com</a>
+    </p>
+  </Footer>
 </SubPageShell>
 
 <style>
-  .now-section {
-    padding: 6rem 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .container {
-    width: 100%;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-
-  .subtitle {
-    font-size: 1.125rem;
-    color: var(--fg-muted);
-    margin-bottom: 0.5rem;
-  }
-
-  .last-updated {
-    font-size: 0.875rem;
-    color: var(--fg-muted);
-    margin-bottom: 3rem;
-    font-style: italic;
-  }
-
-  .now-content {
+  .intro {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 12px;
+    animation: fadeUp 0.6s ease both;
   }
 
-  .now-item h2 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.75rem;
-  }
-
-  .now-item p {
-    line-height: 1.6;
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 12px;
     color: var(--fg-muted);
   }
 
-  .inspired {
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.875rem;
-    color: var(--fg-muted);
+  .dot {
+    position: relative;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--fg);
   }
 
-  .inspired a {
-    color: var(--fg);
-    text-decoration: underline;
+  .dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--fg);
+    animation: pulse 2s ease-out infinite;
   }
 
-  .inspired a:hover {
-    color: var(--accent);
-  }
-
-  @media (max-width: 768px) {
-    .now-section {
-      padding: 4rem 1.5rem;
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.6;
     }
+    to {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
 
-    h1 {
-      font-size: 2rem;
+  .list {
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  dt {
+    padding-top: 2px;
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+
+  dd {
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 639px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro,
+    .dot::after,
+    .list {
+      animation: none;
     }
   }
 </style>

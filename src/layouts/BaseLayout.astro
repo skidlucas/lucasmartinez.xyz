@@ -1,4 +1,6 @@
 ---
+import { Font } from 'astro:assets';
+
 interface AlternateLocale {
   lang: string;
   href: string;
@@ -40,6 +42,7 @@ const alternateLocales = alternates.filter((alternate) => alternate.lang !== lan
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-mono" preload />
 
     <!-- SEO -->
     <title>{title}</title>
@@ -91,39 +94,40 @@ const alternateLocales = alternates.filter((alternate) => alternate.lang !== lan
         }
       })();
     </script>
-    <noscript>
-      <style>
-        [data-reveal] {
-          opacity: 1 !important;
-          transform: none !important;
-        }
-      </style>
-    </noscript>
   </head>
   <body>
     <slot />
-    <script>
-      import '../scripts/reveal';
-    </script>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --bg: #ffffff;
+    --bg: #fafaf9;
     --fg: #0a0a0a;
-    --fg-muted: #666666;
-    --border: #e5e5e5;
-    --accent: #0a0a0a;
-    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --fg-muted: #6b6b6b;
+    --text-2: #333333;
+    --text-3: #555555;
+    --pill-text: #444444;
+    --border: #e2e2e0;
+    --pill-border: #dcdcda;
+    --header-border: #e6e6e4;
+    --header-bg: rgba(250, 250, 249, 0.88);
+    --card-bg: #ffffff;
+    --transition: 0.2s ease;
   }
 
   [data-theme="dark"] {
     --bg: #0a0a0a;
-    --fg: #ffffff;
-    --fg-muted: #999999;
-    --border: #2a2a2a;
-    --accent: #ffffff;
+    --fg: #e8e8e6;
+    --fg-muted: #8a8a8a;
+    --text-2: #b5b5b3;
+    --text-3: #a0a09e;
+    --pill-text: #a8a8a6;
+    --border: #242424;
+    --pill-border: #2a2a2a;
+    --header-border: #242424;
+    --header-bg: rgba(10, 10, 10, 0.85);
+    --card-bg: #0f0f0f;
   }
 
   * {
@@ -132,16 +136,12 @@ const alternateLocales = alternates.filter((alternate) => alternate.lang !== lan
     padding: 0;
   }
 
-  html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-  }
-
   body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-mono), monospace;
+    font-size: 14px;
+    line-height: 1.7;
     background: var(--bg);
     color: var(--fg);
-    line-height: 1.6;
     transition: background var(--transition), color var(--transition);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -155,94 +155,85 @@ const alternateLocales = alternates.filter((alternate) => alternate.lang !== lan
   a {
     color: inherit;
     text-decoration: none;
-    position: relative;
   }
 
-  a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--fg);
-    transition: width var(--transition);
-  }
-
-  a:hover::after {
-    width: 100%;
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
   }
 
   .container {
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .section {
-    padding: 8rem 0;
+    padding: 0 28px;
   }
 
   .section-title {
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--fg-muted);
-    margin-bottom: 3rem;
+    font-size: 12px;
     font-weight: 400;
+    color: var(--fg-muted);
   }
 
-  @media (max-width: 768px) {
-    .container {
-      padding: 0 1.5rem;
-    }
-
-    .section {
-      padding: 5rem 0;
-    }
+  .page-title {
+    font-size: 64px;
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.05em;
   }
 
-  /* Smooth fade-in animations */
-  @keyframes fadeInUp {
+  .page-subtitle {
+    font-size: 16px;
+    color: var(--fg-muted);
+  }
+
+  /* Underlined text link whose hover inverts colors (contact links, /now footer). */
+  .link {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--fg);
+  }
+
+  .link:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @keyframes fadeUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(14px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
   }
 
-  .fade-in {
-    animation: fadeInUp 0.6s ease-out forwards;
+  @media (max-width: 639px) {
+    .container {
+      padding: 0 20px;
+    }
+
+    .page-title {
+      font-size: 44px;
+    }
   }
 
-  /* Stagger delays for list items */
-  .stagger-1 { animation-delay: 0.1s; opacity: 0; }
-  .stagger-2 { animation-delay: 0.2s; opacity: 0; }
-  .stagger-3 { animation-delay: 0.3s; opacity: 0; }
-  .stagger-4 { animation-delay: 0.4s; opacity: 0; }
-  .stagger-5 { animation-delay: 0.5s; opacity: 0; }
-  .stagger-6 { animation-delay: 0.6s; opacity: 0; }
-
-  /* Honor the OS "reduce motion" setting: no entrance animations, no smooth scroll. */
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
     body {
       transition: none;
-    }
-
-    .fade-in {
-      animation: none;
-    }
-
-    .stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5, .stagger-6 {
-      opacity: 1;
-      animation: none;
     }
   }
 </style>

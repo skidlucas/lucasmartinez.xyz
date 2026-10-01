@@ -2,7 +2,6 @@
 import BaseLayout from './BaseLayout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import BackButton from '../components/BackButton.astro';
-import Footer from '../components/Footer.astro';
 import type { Language } from '../i18n/translations';
 
 interface Props {
@@ -11,7 +10,6 @@ interface Props {
   lang?: Language;
   backHref?: string;
   backLabel?: string;
-  showFooter?: boolean;
   noindex?: boolean;
 }
 
@@ -21,23 +19,41 @@ const {
   lang = 'en',
   backHref = '/',
   backLabel,
-  showFooter = true,
   noindex = false,
 }: Props = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} lang={lang} noindex={noindex}>
-  <BackButton href={backHref} label={backLabel} />
-  <ThemeToggle />
+  <header class="top-bar">
+    <BackButton href={backHref} label={backLabel} />
+    <ThemeToggle />
+  </header>
 
-  <main>
+  <main class="container page">
     <slot />
-    {showFooter && <Footer lang={lang} />}
   </main>
 </BaseLayout>
 
 <style>
-  main {
-    min-height: 100vh;
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 32px;
+    font-size: 12px;
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    padding-top: 120px;
+    padding-bottom: 96px;
+  }
+
+  @media (max-width: 639px) {
+    .top-bar {
+      padding: 14px 20px;
+    }
   }
 </style>

@@ -1,10 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ThemeToggle from '../../components/ThemeToggle.astro';
-import LanguageToggle from '../../components/LanguageToggle.astro';
-import type { LanguageLink } from '../../i18n/translations';
-
-const lang: LanguageLink = 'kr';
+import SiteHeader from '../../components/SiteHeader.astro';
 ---
 
 <BaseLayout
@@ -13,49 +9,34 @@ const lang: LanguageLink = 'kr';
   lang="ko"
   noindex
 >
-  <ThemeToggle />
-  <LanguageToggle currentLang={lang} />
+  <SiteHeader currentLang="kr" />
 
-  <main>
-    <section class="joke-section">
-      <div class="container">
-        <h1 class="fade-in">한국어를 못해서 미안해요</h1>
-        <p class="subtitle fade-in stagger-1">¯\_(ツ)_/¯</p>
-      </div>
-    </section>
+  <main class="container joke">
+    <h1 class="page-title">한국어를 못해서 미안해요</h1>
+    <p class="page-subtitle">¯\_(ツ)_/¯</p>
   </main>
 </BaseLayout>
 
 <style>
-  main {
-    min-height: 100vh;
-  }
-
-  .joke-section {
-    min-height: 100vh;
+  .joke {
+    min-height: 100svh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
-    padding: 2rem;
+    gap: 14px;
+    animation: fadeUp 0.7s ease both;
   }
 
-  h1 {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 400;
-    margin-bottom: 2rem;
-    letter-spacing: -0.02em;
+  /* Hangul glyphs are full-width, so the shared 64px title overflows the column. */
+  .page-title {
+    font-size: clamp(28px, 7vw, 44px);
+    letter-spacing: normal;
+    word-break: keep-all;
   }
 
-  .subtitle {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--fg-muted);
-    font-family: Arial, sans-serif;
-  }
-
-  @media (max-width: 768px) {
-    .joke-section {
-      min-height: 80vh;
+  @media (prefers-reduced-motion: reduce) {
+    .joke {
+      animation: none;
     }
   }
 </style>

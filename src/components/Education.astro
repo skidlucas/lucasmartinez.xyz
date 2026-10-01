@@ -1,4 +1,5 @@
 ---
+import TimelineRow from './TimelineRow.astro';
 import { useTranslations, type Language } from '../i18n/translations';
 import { getEducation } from '../data/profile';
 
@@ -11,120 +12,22 @@ const t = useTranslations(lang);
 const education = getEducation(t);
 ---
 
-<section id="education" class="section">
-  <div class="container">
-    <h2 class="section-title">{t('education.title')}</h2>
-    <div class="education-list">
-      {education.map((edu) => (
-        <article class="education-item" data-reveal>
-          <div class="education-header">
-            <div class="education-title-group">
-              <h3 class="education-degree">{edu.degree}</h3>
-              <span class="education-school">{edu.school}</span>
-              {edu.specialization && (
-                <span class="education-specialization">{edu.specialization}</span>
-              )}
-            </div>
-            <span class="education-period">{edu.period}</span>
-          </div>
-        </article>
-      ))}
-    </div>
-  </div>
+<section id="education" class="timeline">
+  <h2 class="section-title">{t('education.title')}</h2>
+  {education.map((edu) => (
+    <TimelineRow
+      variant="stacked"
+      years={edu.period}
+      title={edu.degree}
+      subtitle={edu.specialization ? `${edu.school} — ${edu.specialization}` : edu.school}
+    />
+  ))}
 </section>
 
 <style>
-  .education-list {
-    position: relative;
+  .timeline {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    padding-left: 2rem;
-  }
-
-  .education-list::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .education-item {
-    position: relative;
-    padding-left: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-
-  .education-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .education-item:hover {
-    transform: translateX(4px);
-  }
-
-  .education-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-  }
-
-  .education-title-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .education-degree {
-    font-size: 1.125rem;
-    font-weight: 400;
-  }
-
-  .education-school {
-    color: var(--fg-muted);
-    font-size: 0.875rem;
-  }
-
-  .education-specialization {
-    color: var(--fg-muted);
-    font-size: 0.875rem;
-    font-style: italic;
-  }
-
-  .education-period {
-    color: var(--fg-muted);
-    font-size: 0.875rem;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    .education-list {
-      padding-left: 1.5rem;
-    }
-
-    .education-item {
-      padding-left: 1.5rem;
-    }
-
-    .education-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .education-item {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    gap: 24px;
   }
 </style>

@@ -1,0 +1,125 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { languageLinks, useTranslations, type LanguageLink } from '../i18n/translations';
+
+interface Props {
+  currentLang: LanguageLink;
+}
+
+const { currentLang }: Props = Astro.props;
+const t = useTranslations(currentLang === 'kr' ? 'en' : currentLang);
+
+const langLabels: Record<LanguageLink, string> = {
+  en: 'en',
+  fr: 'fr',
+  kr: '한',
+};
+const otherLangs = (Object.keys(languageLinks) as LanguageLink[]).filter((lang) => lang !== currentLang);
+const getLangPath = (lang: LanguageLink) => (lang === 'en' ? '/' : `/${lang}/`);
+---
+
+<header class="site-header" data-site-header>
+  <span class="name" aria-hidden="true">{t('hero.name')}</span>
+  <nav class="links">
+    <a href="/now" class="now-link">{t('nav.now')}</a>
+    {otherLangs.map((lang) => (
+      <a href={getLangPath(lang)} class="lang-link" hreflang={lang === 'kr' ? 'ko' : lang} aria-label={languageLinks[lang]}>
+        {langLabels[lang]}
+      </a>
+    ))}
+    <ThemeToggle />
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 32px;
+    font-size: 12px;
+    color: var(--fg-muted);
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .site-header.is-scrolled {
+    background: var(--header-bg);
+    border-bottom-color: var(--header-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .name {
+    color: var(--fg);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .is-scrolled .name {
+    opacity: 1;
+    transform: none;
+  }
+
+  .links {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .now-link {
+    color: var(--fg);
+  }
+
+  .now-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .lang-link:hover {
+    color: var(--fg);
+  }
+
+  @media (max-width: 639px) {
+    .site-header {
+      padding: 14px 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .name {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // The header overlays the hero; it only gains a background and shows the
+  // name once the visitor has scrolled past most of the hero.
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const hero = document.getElementById('hero');
+
+  if (header && hero) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      header.classList.toggle('is-scrolled', window.scrollY > hero.offsetHeight * 0.7);
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>

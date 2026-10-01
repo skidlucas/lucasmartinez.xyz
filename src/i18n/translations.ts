@@ -71,25 +71,22 @@ export const translations = defineTranslations({
 		"education.iut.period": "2012 – 2014",
 
 		"projects.title": "projects",
+		"projects.visit": "visit",
 		"projects.pasta.title": "pasta",
 		"projects.pasta.description":
 			"native macos app to set text aside in one keystroke: things to tell the AI later, answers worth keeping. fully vibe coded, for a need i had every single day.",
 		"projects.re7.title": "re7",
 		"projects.re7.description":
 			"recipe manager for the household. all my own recipes in one place, in the same format. fully vibe coded, purely to scratch a personal itch.",
-		"projects.re7.link": "visit",
 		"projects.hilo.title": "hilo",
 		"projects.hilo.description":
 			"browser extension that explains any highlighted text with AI. select text on a page, get a streamed contextual explanation without leaving the tab.",
-		"projects.hilo.link": "visit",
 		"projects.dropthing.title": "dropthing",
 		"projects.dropthing.description":
 			"file and snippet sharing project. mostly a learning playground and an excuse to learn Effect.",
-		"projects.dropthing.link": "visit",
 		"projects.bara.title": "bara",
 		"projects.bara.description":
 			"patient and billing management system. built for my partner, mostly a learning project for me to explore technologies.",
-		"projects.bara.link": "visit",
 
 		"contact.title": "contact",
 		"contact.intro": "feel free to reach out.",
@@ -102,7 +99,7 @@ export const translations = defineTranslations({
 		"now.title": "now",
 		"now.subtitle": "what i'm currently working on",
 		"now.lastUpdated": "last updated",
-		"now.lastUpdatedAt": "august 2026",
+		"now.lastUpdatedAt": "october 2026",
 		"now.work.title": "work",
 		"now.work.content": "building new features at graneet",
 		"now.learning.title": "learning",
@@ -110,13 +107,14 @@ export const translations = defineTranslations({
 		"now.stack.title": "stack",
 		"now.stack.content": "typescript, react, nestjs, postgresql",
 		"now.reading.title": "reading",
-		"now.reading.content": "slam dunk, the will of the many",
+		"now.reading.content":
+			"a lot of comic books, slam dunk, the strength of the few",
 		"now.projects.title": "side projects",
 		"now.projects.content":
-			"jumping around my personal projects, none in particular",
+			"mainly hilo, but also jumping around my other personal projects",
 		"now.personal.title": "personal",
 		"now.personal.content":
-			"recovering from a knee injury, soon training for a race in marseille (21km, 500m d+)",
+			"training for a race in marseille (23km, 600m d+)",
 		"now.inspired.title": "inspired by",
 		"notFound.title": "not found",
 		"notFound.description": "this page doesn't exist.",
@@ -125,9 +123,6 @@ export const translations = defineTranslations({
 		"nav.now": "now",
 
 		"hero.name": "lucas martinez",
-		"hero.title": "ingénieur logiciel",
-		"hero.tagline":
-			"j'essaie d'être la personne sur qui on peut compter pour faire avancer les choses",
 
 		"about.title": "à propos",
 		"about.paragraph1":
@@ -171,25 +166,22 @@ export const translations = defineTranslations({
 		"education.iut.period": "2012 – 2014",
 
 		"projects.title": "projets",
+		"projects.visit": "visiter",
 		"projects.pasta.title": "pasta",
 		"projects.pasta.description":
 			"app macos native pour mettre un texte de côté en un raccourci : des trucs à dire à l'IA plus tard, des réponses qui valent le coup d'être gardées. entièrement vibecodé, pour un besoin que j'avais tous les jours.",
 		"projects.re7.title": "re7",
 		"projects.re7.description":
 			"gestion de recettes pour le foyer. toutes mes recettes au même endroit, avec le même format. entièrement vibecodé, uniquement pour un besoin perso.",
-		"projects.re7.link": "visiter",
 		"projects.hilo.title": "hilo",
 		"projects.hilo.description":
 			"extension navigateur qui explique tout texte surligné avec de l'IA. sélectionnez du texte et obtenez une explication contextuelle en streaming sans quitter l'onglet.",
-		"projects.hilo.link": "visiter",
 		"projects.dropthing.title": "dropthing",
 		"projects.dropthing.description":
 			"projet pour partager des fichiers, des snippets, etc. surtout un projet d'apprentissage et un prétexte pour apprendre Effect.",
-		"projects.dropthing.link": "visiter",
 		"projects.bara.title": "bara",
 		"projects.bara.description":
 			"système de gestion de patientèle et de facturation. créé pour ma compagne, principalement un projet pédagogique pour explorer des techno",
-		"projects.bara.link": "visiter",
 
 		"contact.title": "contact",
 		"contact.intro": "n'hésitez pas à me contacter.",

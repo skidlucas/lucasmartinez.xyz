@@ -10,50 +10,42 @@ const { lang }: Props = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section id="about" class="section">
-  <div class="container">
-    <h2 class="section-title">{t('about.title')}</h2>
-    <div class="about-content">
-      <p>{t('about.paragraph1')}</p>
-      <p>{t('about.paragraph2')}</p>
-      <div class="skills">
-        {skills.map((skill) => (
-          <span class="skill">{skill}</span>
-        ))}
-      </div>
-    </div>
-  </div>
+<section id="about" class="about">
+  <h2 class="section-title">{t('about.title')}</h2>
+  <p>{t('about.paragraph1')}</p>
+  <p class="secondary">{t('about.paragraph2')}</p>
+  <ul class="skills">
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
 </section>
 
 <style>
-  .about-content {
-    max-width: 600px;
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
-  .about-content p {
-    margin-bottom: 1.5rem;
-    color: var(--fg-muted);
-    line-height: 1.8;
+  p {
+    text-wrap: pretty;
+  }
+
+  .secondary {
+    color: var(--text-3);
   }
 
   .skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 2rem;
+    gap: 6px;
+    margin-top: 4px;
+    list-style: none;
   }
 
   .skill {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border);
-    font-size: 0.875rem;
-    transition: all var(--transition);
+    border: 1px solid var(--pill-border);
+    padding: 0 8px;
+    font-size: 12px;
+    color: var(--pill-text);
   }
-
-  .skill:hover {
-    background: var(--fg);
-    color: var(--bg);
-    transform: translateY(-2px);
-  }
-
 </style>
