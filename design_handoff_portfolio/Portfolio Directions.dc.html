@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e9e9e7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.6);opacity:0}}
+[data-motion="off"] *{animation:none !important;transition:none !important}
+</style>
+</helmet>
+<section data-motion="{{ motionAttr }}" style="padding:64px 64px 0;display:flex;flex-direction:column;gap:32px">
+<div style="font-family:'Geist Mono',monospace;font-size:13px;color:#555;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">tour 3 — 2b affiné + page now</div>
+<div>sans palette. hero plein écran, projects au même format que les experiences, nouvel ordre.</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+<!-- 3a HOME -->
+<div id="3a" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">3a</span><span>home — le nom apparaît dans le header une fois le hero passé</span></div>
+<div ref="{{ ref3a }}" onScroll="{{ onScroll3a }}" style="width:1200px;height:820px;overflow:auto;background:#fafaf9;color:#0a0a0a;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;box-shadow:0 30px 60px -30px rgba(0,0,0,.4);position:relative">
+<div style="position:sticky;top:0;z-index:2;height:0">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 32px;font-size:12px;color:#6b6b6b;background:{{ hdrBg }};border-bottom:1px solid {{ hdrLine }};backdrop-filter:blur(8px);transition:background .3s,border-color .3s">
+<span style="color:#0a0a0a;opacity:{{ hdrName }};transform:translateY({{ hdrY }});transition:opacity .3s,transform .3s">lucas martinez</span>
+<div style="display:flex;gap:18px;align-items:center"><a href="#3b" style="color:#0a0a0a" style-hover="text-decoration:underline;text-underline-offset:4px">now</a><a href="#" style-hover="color:#0a0a0a">fr</a><a href="#" style-hover="color:#0a0a0a">한</a><span style="color:#0a0a0a">◐</span></div>
+</div>
+</div>
+<div style="height:820px;box-sizing:border-box;max-width:720px;margin:0 auto;padding:0 28px;display:flex;flex-direction:column;justify-content:center;position:relative">
+<h1 style="margin:0;font-size:64px;line-height:1.05;font-weight:700;letter-spacing:-.05em;animation:fadeUp .7s ease both">lucas martinez</h1>
+<div style="margin-top:14px;color:#6b6b6b;font-size:16px;animation:fadeUp .7s .12s ease both">software engineer</div>
+<div style="margin-top:28px;display:flex;align-items:center;gap:2px;min-height:24px"><span>{{ typed }}</span><span style="display:inline-block;width:8px;height:17px;background:#0a0a0a;animation:blink 1s steps(1) infinite"></span></div>
+</div>
+<div style="max-width:720px;margin:0 auto;padding:40px 28px 120px;display:flex;flex-direction:column;gap:80px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12px;color:#6b6b6b">about</div>
+<p style="margin:0;text-wrap:pretty">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;text-wrap:pretty;color:#555">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><sc-for list="{{ stack }}" as="t" hint-placeholder-count="9"><span style="border:1px solid #dcdcda;padding:0 8px;font-size:12px;color:#444">{{ t }}</span></sc-for></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="font-size:12px;color:#6b6b6b">experiences</div>
+<sc-for list="{{ exp3 }}" as="r" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px">
+<div style="color:#6b6b6b;font-size:12px;padding-top:2px">{{ r.years }}</div>
+<div style="display:flex;flex-direction:column;gap:4px"><sc-if value="{{ r.inline }}" hint-placeholder-val="{{ true }}"><div><span style="font-weight:700">{{ r.title }}</span> <span style="color:#6b6b6b">· {{ r.subtitle }}</span></div></sc-if><sc-if value="{{ r.stacked }}" hint-placeholder-val="{{ false }}"><div><div style="font-weight:700">{{ r.title }}</div><div style="color:#6b6b6b">{{ r.subtitle }}</div></div></sc-if><sc-if value="{{ r.desc }}" hint-placeholder-val="{{ true }}"><div style="color:#333;text-wrap:pretty">{{ r.desc }}</div></sc-if><sc-if value="{{ r.tagline }}" hint-placeholder-val="{{ true }}"><div style="color:#6b6b6b;font-size:12px">{{ r.tagline }}</div></sc-if></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="font-size:12px;color:#6b6b6b">projects</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+<sc-for list="{{ projects3 }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="background:#fff;border:1px solid #e2e2e0;padding:18px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s" style-hover="border-color:#0a0a0a;transform:translateY(-2px)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:700">{{ p.name }}</span><span style="font-size:12px;color:#6b6b6b">{{ p.visit }}</span></div>
+<div style="color:#333;font-size:13px;text-wrap:pretty">{{ p.desc }}</div>
+<div style="color:#6b6b6b;font-size:12px">{{ p.tagline }}</div>
+</a>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="font-size:12px;color:#6b6b6b">education</div>
+<sc-for list="{{ edu3 }}" as="r" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px">
+<div style="color:#6b6b6b;font-size:12px;padding-top:2px">{{ r.years }}</div>
+<div style="display:flex;flex-direction:column;gap:4px"><sc-if value="{{ r.inline }}" hint-placeholder-val="{{ true }}"><div><span style="font-weight:700">{{ r.title }}</span> <span style="color:#6b6b6b">· {{ r.subtitle }}</span></div></sc-if><sc-if value="{{ r.stacked }}" hint-placeholder-val="{{ false }}"><div><div style="font-weight:700">{{ r.title }}</div><div style="color:#6b6b6b">{{ r.subtitle }}</div></div></sc-if><sc-if value="{{ r.desc }}" hint-placeholder-val="{{ true }}"><div style="color:#333;text-wrap:pretty">{{ r.desc }}</div></sc-if><sc-if value="{{ r.tagline }}" hint-placeholder-val="{{ true }}"><div style="color:#6b6b6b;font-size:12px">{{ r.tagline }}</div></sc-if></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12px;color:#6b6b6b">contact</div>
+<div>feel free to reach out.</div>
+<div style="display:flex;gap:24px"><a href="mailto:lucasmartinez.it@gmail.com" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">email</a><a href="https://github.com/skidlucas" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">github</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">linkedin</a></div>
+<div style="font-size:11px;color:#6b6b6b;margin-top:32px">© 2026 lucas martinez. all rights reserved.</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 3b NOW -->
+<div id="3b" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">3b</span><span>/now — même grille label | contenu</span></div>
+<div style="width:1200px;height:820px;overflow:auto;background:#fafaf9;color:#0a0a0a;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;box-shadow:0 30px 60px -30px rgba(0,0,0,.4)">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 32px;font-size:12px;color:#6b6b6b">
+<a href="#3a" style="color:#0a0a0a;display:flex;gap:8px;transition:transform .2s" style-hover="transform:translateX(-3px)">← home</a>
+<span style="color:#0a0a0a">◐</span>
+</div>
+<div style="max-width:720px;margin:0 auto;padding:120px 28px 96px;display:flex;flex-direction:column;gap:72px">
+<div style="display:flex;flex-direction:column;gap:12px;animation:fadeUp .6s ease both">
+<h1 style="margin:0;font-size:64px;line-height:1.05;font-weight:700;letter-spacing:-.05em">now</h1>
+<div style="color:#6b6b6b;font-size:16px">what i'm currently working on</div>
+<div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#6b6b6b;margin-top:8px"><span style="position:relative;width:7px;height:7px;display:inline-block"><span style="position:absolute;inset:0;border-radius:50%;background:#0a0a0a"></span><span style="position:absolute;inset:0;border-radius:50%;background:#0a0a0a;animation:pulse 2s ease-out infinite"></span></span>last updated: october 2026</div>
+</div>
+<div style="display:flex;flex-direction:column;border-top:1px solid #e2e2e0;animation:fadeUp .6s .15s ease both">
+<sc-for list="{{ nowItems }}" as="n" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px;padding:18px 0;border-bottom:1px solid #e2e2e0">
+<div style="color:#6b6b6b;font-size:12px;padding-top:2px">{{ n.label }}</div>
+<div style="text-wrap:pretty">{{ n.value }}</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:32px;font-size:12px;color:#6b6b6b">
+<div>inspired by <a href="https://nownownow.com" style="color:#0a0a0a;text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">nownownow.com</a></div>
+<div style="font-size:11px">© 2026 lucas martinez. all rights reserved.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+<section data-motion="{{ motionAttr }}" style="padding:64px 64px 0;display:flex;flex-direction:column;gap:32px">
+<div style="font-family:'Geist Mono',monospace;font-size:13px;color:#555;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">tour 2 — 1a, moins nerd</div>
+<div>on garde la mono, le noir & blanc, le typing et les hovers. plus de prompts shell ni de status bar vim.</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+<!-- 2a -->
+<div id="2a" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">2a</span><span>épuré — texte en sans, mono réservée aux métadonnées</span></div>
+<div style="width:1200px;height:820px;overflow:auto;background:#0a0a0a;color:#ededeb;font-family:'Geist',sans-serif;font-size:15px;line-height:1.65;box-shadow:0 30px 60px -30px rgba(0,0,0,.4)">
+<div style="max-width:680px;margin:0 auto;padding:40px 28px 96px;display:flex;flex-direction:column;gap:88px">
+<div style="display:flex;justify-content:space-between;font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a"><span>lucasmartinez.xyz</span><div style="display:flex;gap:18px"><a href="#" style-hover="color:#fff">fr</a><a href="#" style-hover="color:#fff">한</a><span style="color:#ededeb">◐</span></div></div>
+<div style="display:flex;flex-direction:column;gap:14px;animation:fadeUp .7s ease both">
+<h1 style="margin:0;font-size:48px;line-height:1.05;font-weight:500;letter-spacing:-.04em">lucas martinez</h1>
+<div style="font-family:'Geist Mono',monospace;font-size:13px;color:#8a8a8a">software engineer</div>
+<div style="display:flex;align-items:center;gap:2px;min-height:28px;font-size:18px;color:#cfcfcd"><span>{{ typed }}</span><span style="display:inline-block;width:1.5px;height:20px;background:#ededeb;animation:blink 1s steps(1) infinite"></span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px;animation:fadeUp .7s .15s ease both">
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a">about</div>
+<p style="margin:0;text-wrap:pretty">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;text-wrap:pretty;color:#a3a3a1">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a">{{ stackLine }}</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px;animation:fadeUp .7s .3s ease both">
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a;margin-bottom:12px">experiences</div>
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding:16px;margin:0 -16px;border-radius:6px;transition:background .2s" style-hover="background:#151515">
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a;padding-top:3px">{{ e.years }}</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<div><span style="font-weight:500">{{ e.role }}</span><span style="color:#8a8a8a"> · {{ e.co }}, {{ e.mode }}</span></div>
+<div style="color:#a3a3a1;text-wrap:pretty">{{ e.desc }}</div>
+<div style="font-family:'Geist Mono',monospace;color:#6f6f6d;font-size:11px;margin-top:2px">{{ e.tagline }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px;animation:fadeUp .7s .45s ease both">
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a;margin-bottom:12px">projects</div>
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:24px;padding:16px;margin:0 -16px;border-radius:6px;transition:background .2s" style-hover="background:#151515">
+<div style="font-weight:500">{{ p.name }}</div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="color:#a3a3a1;text-wrap:pretty">{{ p.desc }}</span><span style="font-family:'Geist Mono',monospace;color:#6f6f6d;font-size:11px">{{ p.tagline }}</span></div>
+<div style="color:#8a8a8a">{{ p.arrow }}</div>
+</a>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a">education</div>
+<sc-for list="{{ edu }}" as="d" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px"><div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a;padding-top:3px">{{ d.years }}</div><div><div style="font-weight:500">{{ d.title }}</div><div style="color:#8a8a8a">{{ d.school }}</div></div></div></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a">contact</div>
+<div>feel free to reach out.</div>
+<div style="display:flex;gap:24px;font-family:'Geist Mono',monospace;font-size:13px"><a href="mailto:lucasmartinez.it@gmail.com" style="border-bottom:1px solid #444" style-hover="border-bottom-color:#ededeb">email</a><a href="https://github.com/skidlucas" style="border-bottom:1px solid #444" style-hover="border-bottom-color:#ededeb">github</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style="border-bottom:1px solid #444" style-hover="border-bottom-color:#ededeb">linkedin</a><a href="#" style="border-bottom:1px solid #444" style-hover="border-bottom-color:#ededeb">now</a></div>
+</div>
+<div style="font-family:'Geist Mono',monospace;font-size:11px;color:#6f6f6d">© 2026 lucas martinez. all rights reserved.</div>
+</div>
+</div>
+</div>
+
+<!-- 2b -->
+<div id="2b" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">2b</span><span>palette ⌘K — la touche "outil pro" à la place du shell (essaie ⌘K / ctrl+K)</span></div>
+<div style="width:1200px;height:820px;position:relative;box-shadow:0 30px 60px -30px rgba(0,0,0,.4);overflow:hidden">
+<div ref="{{ ref2b }}" style="position:absolute;inset:0;overflow:auto;background:#fafaf9;color:#0a0a0a;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7">
+<div style="position:sticky;top:0;z-index:2;background:rgba(250,250,249,.88);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:14px 32px;font-size:12px;color:#6b6b6b">
+<span style="color:#0a0a0a">lucas martinez</span>
+<div style="display:flex;gap:18px;align-items:center"><a href="#" style-hover="color:#0a0a0a">fr</a><a href="#" style-hover="color:#0a0a0a">한</a><span style="color:#0a0a0a">◐</span><button onClick="{{ openPal }}" style="font:inherit;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #dcdcda;border-radius:6px;padding:4px 6px 4px 10px;color:#6b6b6b;cursor:pointer" style-hover="border-color:#0a0a0a;color:#0a0a0a">search<span style="border:1px solid #dcdcda;border-radius:4px;padding:0 5px;font-size:11px">⌘K</span></button></div>
+</div>
+<div style="max-width:720px;margin:0 auto;padding:72px 28px 120px;display:flex;flex-direction:column;gap:72px">
+<div data-sec="0" style="display:flex;flex-direction:column;gap:12px;animation:fadeUp .6s ease both">
+<h1 style="margin:0;font-size:40px;line-height:1.1;font-weight:700;letter-spacing:-.04em">lucas martinez</h1>
+<div style="color:#6b6b6b">software engineer</div>
+<div style="display:flex;align-items:center;gap:2px;min-height:24px"><span>{{ typed }}</span><span style="display:inline-block;width:8px;height:17px;background:#0a0a0a;animation:blink 1s steps(1) infinite"></span></div>
+<p style="margin:24px 0 0;text-wrap:pretty">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;text-wrap:pretty;color:#555">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><sc-for list="{{ stack }}" as="t" hint-placeholder-count="9"><span style="border:1px solid #dcdcda;padding:0 8px;font-size:12px;color:#444">{{ t }}</span></sc-for></div>
+</div>
+<div data-sec="1" style="display:flex;flex-direction:column;gap:4px">
+<div style="font-size:12px;color:#6b6b6b;margin-bottom:10px">experiences</div>
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px;padding:14px 16px;margin:0 -16px;border-left:2px solid transparent;transition:background .2s,border-color .2s" style-hover="background:#f0f0ee;border-left-color:#0a0a0a">
+<div style="color:#6b6b6b;font-size:12px;padding-top:2px">{{ e.years }}</div>
+<div style="display:flex;flex-direction:column;gap:4px"><div><span style="font-weight:700">{{ e.role }}</span> <span style="color:#6b6b6b">· {{ e.co }} — {{ e.mode }}</span></div><div style="color:#333;text-wrap:pretty">{{ e.desc }}</div><div style="color:#6b6b6b;font-size:12px">{{ e.tagline }}</div></div>
+</div>
+</sc-for>
+</div>
+<div data-sec="2" style="display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12px;color:#6b6b6b">projects</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="background:#fff;border:1px solid #e2e2e0;padding:18px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s" style-hover="border-color:#0a0a0a;transform:translateY(-2px)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:700">{{ p.name }}</span><span style="font-size:12px;color:#6b6b6b">{{ p.arrow }}</span></div>
+<div style="color:#333;font-size:13px;text-wrap:pretty">{{ p.desc }}</div>
+<div style="color:#6b6b6b;font-size:12px">{{ p.tagline }}</div>
+</a>
+</sc-for>
+</div>
+</div>
+<div data-sec="3" style="display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12px;color:#6b6b6b">education</div>
+<sc-for list="{{ edu }}" as="d" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px"><div style="color:#6b6b6b;font-size:12px;padding-top:2px">{{ d.years }}</div><div><div style="font-weight:700">{{ d.title }}</div><div style="color:#6b6b6b">{{ d.school }}</div></div></div></sc-for>
+</div>
+<div data-sec="4" style="display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12px;color:#6b6b6b">contact</div>
+<div>feel free to reach out.</div>
+<div style="display:flex;gap:24px"><a href="mailto:lucasmartinez.it@gmail.com" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">email</a><a href="https://github.com/skidlucas" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">github</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">linkedin</a><a href="#" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#0a0a0a;color:#fafaf9">now</a></div>
+<div style="font-size:11px;color:#6b6b6b;margin-top:32px">© 2026 lucas martinez. all rights reserved.</div>
+</div>
+</div>
+</div>
+<sc-if value="{{ palOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closePal }}" style="position:absolute;inset:0;z-index:5;background:rgba(10,10,10,.25);backdrop-filter:blur(2px);display:flex;justify-content:center;padding-top:140px;font-family:'JetBrains Mono',monospace">
+<div onClick="{{ stop }}" style="width:560px;align-self:flex-start;background:#fff;border:1px solid #d4d4d2;border-radius:10px;box-shadow:0 24px 60px -12px rgba(0,0,0,.3);overflow:hidden;animation:fadeUp .18s ease both">
+<input autoFocus value="{{ palQ }}" onChange="{{ onPalQ }}" placeholder="type a command or search…" style="width:100%;box-sizing:border-box;border:0;border-bottom:1px solid #e6e6e4;padding:16px 18px;font:inherit;font-size:14px;outline:none;background:transparent;color:#0a0a0a">
+<div style="padding:6px;display:flex;flex-direction:column;max-height:320px;overflow:auto">
+<sc-for list="{{ palItems }}" as="it" hint-placeholder-count="6">
+<div onClick="{{ it.run }}" onMouseEnter="{{ it.hover }}" style="display:flex;justify-content:space-between;padding:10px 12px;border-radius:6px;font-size:13px;cursor:pointer;background:{{ it.bg }};color:{{ it.fg }}"><span>{{ it.label }}</span><span style="opacity:.6;font-size:11px">{{ it.kind }}</span></div>
+</sc-for>
+<sc-if value="{{ palEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:14px 12px;font-size:13px;color:#6b6b6b">no results.</div></sc-if>
+</div>
+<div style="display:flex;gap:16px;padding:8px 14px;border-top:1px solid #e6e6e4;font-size:11px;color:#6b6b6b"><span>↑↓ navigate</span><span>↵ select</span><span>esc close</span></div>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+
+<!-- 2c -->
+<div id="2c" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">2c</span><span>1a + un index discret à gauche qui suit le scroll, heure locale en haut</span></div>
+<div ref="{{ ref2c }}" onScroll="{{ onScroll2c }}" style="width:1200px;height:820px;overflow:auto;background:#0a0a0a;color:#e8e8e6;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;box-shadow:0 30px 60px -30px rgba(0,0,0,.4)">
+<div style="position:sticky;top:0;z-index:2;background:rgba(10,10,10,.85);backdrop-filter:blur(8px);display:flex;justify-content:space-between;padding:14px 32px;font-size:12px;color:#8a8a8a">
+<span style="color:#e8e8e6">lucas martinez</span>
+<div style="display:flex;gap:18px;align-items:center"><span>south of france · <span style="color:#e8e8e6">{{ clockShort }}</span></span><a href="#" style-hover="color:#fff">fr</a><a href="#" style-hover="color:#fff">한</a><span style="color:#e8e8e6">◐</span></div>
+</div>
+<div style="display:grid;grid-template-columns:200px minmax(0,720px);gap:64px;padding:0 32px">
+<nav style="position:sticky;top:120px;align-self:start;margin-top:72px;display:flex;flex-direction:column;gap:12px;font-size:12px">
+<sc-for list="{{ nav2c }}" as="n" hint-placeholder-count="5">
+<a href="#" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:12px;color:{{ n.color }}" style-hover="color:#e8e8e6"><span style="height:1px;background:currentColor;width:{{ n.w }};transition:width .3s cubic-bezier(.2,.7,.2,1)"></span>{{ n.label }}</a>
+</sc-for>
+</nav>
+<div style="padding:72px 0 240px;display:flex;flex-direction:column;gap:72px">
+<div data-sec="0" style="display:flex;flex-direction:column;gap:12px;animation:fadeUp .6s ease both">
+<h1 style="margin:0;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.03em">lucas martinez</h1>
+<div style="color:#8a8a8a">software engineer</div>
+<div style="display:flex;align-items:center;gap:2px;min-height:24px"><span>{{ typed }}</span><span style="display:inline-block;width:8px;height:17px;background:#e8e8e6;animation:blink 1s steps(1) infinite"></span></div>
+<p style="margin:24px 0 0;text-wrap:pretty">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;text-wrap:pretty;color:#a3a3a1">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px"><sc-for list="{{ stack }}" as="t" hint-placeholder-count="9"><span style="border:1px solid #2a2a2a;padding:0 8px;font-size:12px;color:#b5b5b3">{{ t }}</span></sc-for></div>
+</div>
+<div data-sec="1" style="display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px;padding:14px 16px;margin:0 -16px;border-left:2px solid transparent;transition:background .2s,border-color .2s" style-hover="background:#141414;border-left-color:#e8e8e6">
+<div style="color:#8a8a8a;font-size:12px;padding-top:2px">{{ e.years }}</div>
+<div style="display:flex;flex-direction:column;gap:4px"><div><span style="font-weight:700">{{ e.role }}</span> <span style="color:#8a8a8a">· {{ e.co }} — {{ e.mode }}</span></div><div style="color:#b5b5b3;text-wrap:pretty">{{ e.desc }}</div><div style="color:#6f6f6f;font-size:12px">{{ e.tagline }}</div></div>
+</div>
+</sc-for>
+</div>
+<div data-sec="2" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="border:1px solid #242424;padding:18px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s" style-hover="border-color:#e8e8e6;transform:translateY(-2px)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:700">{{ p.name }}</span><span style="font-size:12px;color:#8a8a8a">{{ p.arrow }}</span></div>
+<div style="color:#b5b5b3;font-size:13px;text-wrap:pretty">{{ p.desc }}</div>
+<div style="color:#6f6f6f;font-size:12px">{{ p.tagline }}</div>
+</a>
+</sc-for>
+</div>
+<div data-sec="3" style="display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ edu }}" as="d" hint-placeholder-count="2"><div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:20px"><div style="color:#8a8a8a;font-size:12px;padding-top:2px">{{ d.years }}</div><div><div style="font-weight:700">{{ d.title }}</div><div style="color:#8a8a8a">{{ d.school }}</div></div></div></sc-for>
+</div>
+<div data-sec="4" style="display:flex;flex-direction:column;gap:14px">
+<div>feel free to reach out.</div>
+<div style="display:flex;gap:24px"><a href="mailto:lucasmartinez.it@gmail.com" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">email</a><a href="https://github.com/skidlucas" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">github</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">linkedin</a><a href="#" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">now</a></div>
+<div style="font-size:11px;color:#6f6f6f;margin-top:32px">© 2026 lucas martinez. all rights reserved.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+<section data-motion="{{ motionAttr }}" style="padding:64px;display:flex;flex-direction:column;gap:32px">
+<div style="font-family:'Geist Mono',monospace;font-size:13px;color:#555;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">tour 1 — trois directions pour lucasmartinez.xyz</div>
+<div>même contenu, mêmes codes (minimal, noir & blanc, lowercase). chaque artboard scrolle comme une vraie page.</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+
+<!-- 1a TERMINAL -->
+<div id="1a" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">1a</span><span>terminal — le site comme une session shell, typing + status bar vim</span></div>
+<div style="width:1200px;height:820px;overflow:auto;background:#0a0a0a;color:#e8e8e6;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;box-shadow:0 30px 60px -30px rgba(0,0,0,.4);position:relative">
+<div style="position:sticky;top:0;z-index:2;background:rgba(10,10,10,.85);backdrop-filter:blur(8px);border-bottom:1px solid #1f1f1f;display:flex;justify-content:space-between;padding:12px 28px;font-size:12px;color:#8a8a8a">
+<span>~/lucasmartinez <span style="color:#e8e8e6">main</span></span>
+<div style="display:flex;gap:18px"><a href="#" style="color:#8a8a8a" style-hover="color:#fff">fr</a><a href="#" style="color:#8a8a8a" style-hover="color:#fff">한</a><span style="color:#e8e8e6">◐</span></div>
+</div>
+<div style="max-width:760px;margin:0 auto;padding:72px 28px 120px;display:flex;flex-direction:column;gap:64px">
+<div style="display:flex;flex-direction:column;gap:12px;animation:fadeUp .6s ease both">
+<div style="color:#8a8a8a">$ whoami</div>
+<h1 style="margin:0;font-size:44px;line-height:1.1;font-weight:700;letter-spacing:-.03em">lucas martinez</h1>
+<div style="color:#8a8a8a">software engineer</div>
+<div style="display:flex;align-items:center;gap:8px;min-height:24px"><span style="color:#8a8a8a">&gt;</span><span>{{ typed }}</span><span style="display:inline-block;width:9px;height:18px;background:#e8e8e6;animation:blink 1s steps(1) infinite"></span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;animation:fadeUp .6s .15s ease both">
+<div style="color:#8a8a8a">$ cat about.md</div>
+<p style="margin:0;text-wrap:pretty">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;text-wrap:pretty">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ stack }}" as="t" hint-placeholder-count="9"><span style="border:1px solid #2a2a2a;padding:0 8px;font-size:12px;color:#b5b5b3">{{ t }}</span></sc-for></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;animation:fadeUp .6s .3s ease both">
+<div style="color:#8a8a8a;margin-bottom:8px">$ git log --experiences</div>
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:14px 16px;margin:0 -16px;border-left:2px solid transparent;transition:background .2s,border-color .2s" style-hover="background:#141414;border-left-color:#e8e8e6">
+<div style="color:#8a8a8a;font-size:12px;padding-top:2px">{{ e.years }}</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<div><span style="font-weight:700">{{ e.role }}</span> <span style="color:#8a8a8a">@ {{ e.co }} — {{ e.mode }}</span></div>
+<div style="color:#b5b5b3;text-wrap:pretty">{{ e.desc }}</div>
+<div style="color:#6f6f6f;font-size:12px">{{ e.tagline }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;animation:fadeUp .6s .45s ease both">
+<div style="color:#8a8a8a">$ ls projects/</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+<div style="border:1px solid #242424;padding:18px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s" style-hover="border-color:#e8e8e6;transform:translateY(-2px)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:700">./{{ p.name }}</span><sc-if value="{{ p.url }}" hint-placeholder-val="{{ true }}"><a href="{{ p.url }}" style="font-size:12px;color:#8a8a8a" style-hover="color:#fff">visit →</a></sc-if></div>
+<div style="color:#b5b5b3;font-size:13px;text-wrap:pretty">{{ p.desc }}</div>
+<div style="color:#6f6f6f;font-size:12px">{{ p.tagline }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="color:#8a8a8a">$ cat education.txt</div>
+<sc-for list="{{ edu }}" as="d" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px"><div style="color:#8a8a8a;font-size:12px;padding-top:2px">{{ d.years }}</div><div><div style="font-weight:700">{{ d.title }}</div><div style="color:#8a8a8a">{{ d.school }}</div></div></div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="color:#8a8a8a">$ contact --help</div>
+<div>feel free to reach out.</div>
+<div style="display:flex;gap:24px"><a href="mailto:lucasmartinez.it@gmail.com" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">email</a><a href="https://github.com/skidlucas" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">github</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">linkedin</a><a href="#" style="text-decoration:underline;text-underline-offset:4px" style-hover="background:#e8e8e6;color:#0a0a0a">now</a></div>
+</div>
+</div>
+<div style="position:sticky;bottom:0;display:flex;justify-content:space-between;font-size:11px;background:#e8e8e6;color:#0a0a0a">
+<div style="display:flex"><span style="background:#0a0a0a;color:#e8e8e6;padding:3px 12px;font-weight:700">NORMAL</span><span style="padding:3px 12px">main</span><span style="padding:3px 12px">lucasmartinez.xyz</span></div>
+<div style="display:flex"><span style="padding:3px 12px">utf-8</span><span style="padding:3px 12px">© 2026 lucas martinez</span></div>
+</div>
+</div>
+</div>
+
+<!-- 1b EDITORIAL -->
+<div id="1b" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">1b</span><span>éditorial suisse — grande typo, index numéroté, marquee de stack, lignes qui s'inversent au hover</span></div>
+<div style="width:1200px;height:820px;overflow:auto;background:#fafaf9;color:#0a0a0a;font-family:'Geist',sans-serif;box-shadow:0 30px 60px -30px rgba(0,0,0,.4)">
+<div style="position:sticky;top:0;z-index:2;background:rgba(250,250,249,.9);backdrop-filter:blur(8px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:16px 40px;border-bottom:1px solid #0a0a0a;font-family:'Geist Mono',monospace;font-size:12px">
+<span>lucas martinez</span>
+<div style="display:flex;gap:28px"><a href="#" style-hover="text-decoration:line-through">about</a><a href="#" style-hover="text-decoration:line-through">experiences</a><a href="#" style-hover="text-decoration:line-through">projects</a><a href="#" style-hover="text-decoration:line-through">contact</a></div>
+<div style="display:flex;gap:16px;justify-content:flex-end;color:#6b6b6b"><span>fr</span><span>한</span><span style="color:#0a0a0a">◐</span></div>
+</div>
+<div style="padding:96px 40px 64px;display:flex;flex-direction:column;gap:48px">
+<h1 style="margin:0;font-size:152px;line-height:.88;font-weight:600;letter-spacing:-.06em;display:flex;flex-direction:column">
+<span style="animation:fadeUp .8s cubic-bezier(.2,.7,.2,1) both">lucas</span>
+<span style="animation:fadeUp .8s .12s cubic-bezier(.2,.7,.2,1) both">martinez</span>
+</h1>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;animation:fadeUp .8s .3s ease both">
+<div style="grid-column:span 4;font-family:'Geist Mono',monospace;font-size:13px;color:#6b6b6b">software engineer<br>south of france</div>
+<p style="grid-column:6 / span 7;margin:0;font-size:32px;line-height:1.2;letter-spacing:-.02em;text-wrap:pretty">trying to be the guy you can count on to get things done</p>
+</div>
+</div>
+<div style="background:#0a0a0a;color:#fafaf9;overflow:hidden;padding:14px 0;font-family:'Geist Mono',monospace;font-size:14px">
+<div style="display:flex;width:max-content;animation:marquee 28s linear infinite">
+<sc-for list="{{ marquee }}" as="t" hint-placeholder-count="18"><span style="padding:0 28px;display:flex;gap:28px;align-items:center">{{ t }}<span style="color:#6b6b6b">✦</span></span></sc-for>
+</div>
+</div>
+<div style="padding:0 40px">
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding:72px 0;border-bottom:1px solid #d8d8d6">
+<div style="grid-column:span 4;font-family:'Geist Mono',monospace;font-size:12px">(01) about</div>
+<div style="grid-column:6 / span 7;display:flex;flex-direction:column;gap:16px;font-size:20px;line-height:1.45;text-wrap:pretty">
+<p style="margin:0">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;color:#6b6b6b">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+</div>
+</div>
+<div style="padding:72px 0 0;display:flex;flex-direction:column;gap:32px">
+<div style="font-family:'Geist Mono',monospace;font-size:12px">(02) experiences</div>
+<div style="border-top:1px solid #0a0a0a">
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding:24px 16px;margin:0 -16px;border-bottom:1px solid #0a0a0a;transition:background .25s,color .25s" style-hover="background:#0a0a0a;color:#fafaf9">
+<div style="grid-column:span 2;font-family:'Geist Mono',monospace;font-size:12px;padding-top:8px">{{ e.years }}</div>
+<div style="grid-column:span 4;display:flex;flex-direction:column;gap:4px"><span style="font-size:24px;font-weight:500;letter-spacing:-.02em">{{ e.role }}</span><span style="font-family:'Geist Mono',monospace;font-size:12px;opacity:.6">{{ e.co }} — {{ e.mode }}</span></div>
+<div style="grid-column:6 / span 7;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.5;padding-top:6px"><span style="text-wrap:pretty">{{ e.desc }}</span><span style="font-family:'Geist Mono',monospace;font-size:11px;opacity:.55">{{ e.tagline }}</span></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="padding:96px 0 0;display:flex;flex-direction:column;gap:32px">
+<div style="font-family:'Geist Mono',monospace;font-size:12px">(03) projects</div>
+<div>
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding:28px 0;border-bottom:1px solid #d8d8d6;align-items:baseline;transition:padding .3s cubic-bezier(.2,.7,.2,1)" style-hover="padding-left:24px">
+<span style="grid-column:span 1;font-family:'Geist Mono',monospace;font-size:12px;color:#6b6b6b">{{ p.num }}</span>
+<span style="grid-column:span 4;font-size:56px;font-weight:500;letter-spacing:-.04em;line-height:1">{{ p.name }}</span>
+<span style="grid-column:6 / span 6;display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.5"><span style="text-wrap:pretty">{{ p.desc }}</span><span style="font-family:'Geist Mono',monospace;font-size:11px;color:#6b6b6b">{{ p.tagline }}</span></span>
+<span style="grid-column:span 1;text-align:right;font-size:22px">{{ p.arrow }}</span>
+</a>
+</sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding:72px 0;border-bottom:1px solid #d8d8d6">
+<div style="grid-column:span 4;font-family:'Geist Mono',monospace;font-size:12px">(04) education</div>
+<div style="grid-column:6 / span 7;display:flex;flex-direction:column;gap:20px">
+<sc-for list="{{ edu }}" as="d" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:24px"><div><div style="font-size:18px;font-weight:500">{{ d.title }}</div><div style="color:#6b6b6b;font-size:14px">{{ d.school }}</div></div><span style="font-family:'Geist Mono',monospace;font-size:12px;white-space:nowrap">{{ d.years }}</span></div></sc-for>
+</div>
+</div>
+<div style="padding:96px 0 40px;display:flex;flex-direction:column;gap:40px">
+<div style="font-family:'Geist Mono',monospace;font-size:12px">(05) contact</div>
+<div style="font-size:88px;font-weight:500;letter-spacing:-.05em;line-height:.95">feel free to<br>reach out.</div>
+<div style="display:flex;justify-content:space-between;align-items:end;border-top:1px solid #0a0a0a;padding-top:20px;font-family:'Geist Mono',monospace;font-size:13px">
+<div style="display:flex;gap:32px"><a href="mailto:lucasmartinez.it@gmail.com" style-hover="text-decoration:line-through">email ↗</a><a href="https://github.com/skidlucas" style-hover="text-decoration:line-through">github ↗</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style-hover="text-decoration:line-through">linkedin ↗</a><a href="#" style-hover="text-decoration:line-through">now ↗</a></div>
+<span style="color:#6b6b6b">© 2026 lucas martinez. all rights reserved.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 1c SPLIT -->
+<div id="1c" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:10px;align-items:center;font-family:'Geist Mono',monospace;font-size:13px;color:#222"><span style="background:#0a0a0a;color:#fff;padding:3px 8px;border-radius:4px">1c</span><span>split — sidebar fixe noire, horloge live, nav qui suit le scroll, timeline</span></div>
+<div style="width:1200px;height:820px;display:grid;grid-template-columns:380px minmax(0,1fr);box-shadow:0 30px 60px -30px rgba(0,0,0,.4);font-family:'IBM Plex Sans',sans-serif">
+<aside style="background:#0a0a0a;color:#f2f2f0;padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:10px;animation:fadeUp .6s ease both">
+<h1 style="margin:0;font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1">lucas martinez</h1>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8f8f8d">software engineer</div>
+<p style="margin:8px 0 0;font-size:16px;line-height:1.5;color:#d4d4d2;text-wrap:pretty">trying to be the guy you can count on to get things done</p>
+</div>
+<div style="display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8f8f8d">
+<span style="position:relative;width:8px;height:8px;display:inline-block"><span style="position:absolute;inset:0;border-radius:50%;background:#f2f2f0"></span><span style="position:absolute;inset:0;border-radius:50%;background:#f2f2f0;animation:pulse 2s ease-out infinite"></span></span>
+<span>south of france · <span style="color:#f2f2f0">{{ clock }}</span></span>
+</div>
+<nav style="display:flex;flex-direction:column;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:13px">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+<a href="#" onClick="{{ n.go }}" style="display:flex;align-items:center;gap:14px;color:{{ n.color }}" style-hover="color:#f2f2f0"><span style="height:1px;background:currentColor;width:{{ n.w }};transition:width .3s cubic-bezier(.2,.7,.2,1)"></span><span>{{ n.label }}</span></a>
+</sc-for>
+</nav>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:12px">
+<div style="display:flex;gap:18px"><a href="mailto:lucasmartinez.it@gmail.com" style="color:#d4d4d2" style-hover="color:#fff;text-decoration:underline">email</a><a href="https://github.com/skidlucas" style="color:#d4d4d2" style-hover="color:#fff;text-decoration:underline">github</a><a href="https://www.linkedin.com/in/lucas-martinez-462336a7" style="color:#d4d4d2" style-hover="color:#fff;text-decoration:underline">linkedin</a><a href="#" style="color:#d4d4d2" style-hover="color:#fff;text-decoration:underline">now</a></div>
+<div style="display:flex;justify-content:space-between;color:#8f8f8d"><span>© 2026</span><div style="display:flex;gap:14px"><span>fr</span><span>한</span><span style="color:#f2f2f0">◐</span></div></div>
+</div>
+</aside>
+<main ref="{{ scrollRef }}" onScroll="{{ onScroll }}" style="background:#fafaf9;color:#0a0a0a;overflow:auto;padding:48px 64px 200px;display:flex;flex-direction:column;gap:80px;position:relative">
+<div data-sec="0" style="display:flex;flex-direction:column;gap:18px;font-size:17px;line-height:1.6">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">about</div>
+<p style="margin:0;text-wrap:pretty">software engineer based in the south of france with a preference for backend. i like solving problems and feeling useful.</p>
+<p style="margin:0;text-wrap:pretty;color:#555">when not writing code, you can find me running, playing football or padel, gaming, reading, or taking care of my daughters.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><sc-for list="{{ stack }}" as="t" hint-placeholder-count="9"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid #d4d4d2;border-radius:99px;padding:3px 10px">{{ t }}</span></sc-for></div>
+</div>
+<div data-sec="1" style="display:flex;flex-direction:column;gap:24px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">experiences</div>
+<div style="position:relative;display:flex;flex-direction:column;gap:36px;padding-left:28px">
+<span style="position:absolute;left:4px;top:8px;bottom:8px;width:1px;background:#d4d4d2"></span>
+<sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+<div style="position:relative;display:flex;flex-direction:column;gap:6px">
+<span style="position:absolute;left:-28px;top:7px;width:9px;height:9px;border-radius:50%;border:1px solid #0a0a0a;background:{{ e.dot }};box-sizing:border-box"></span>
+<div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline"><span style="font-size:18px;font-weight:600;letter-spacing:-.01em">{{ e.role }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b;white-space:nowrap">{{ e.years }}</span></div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">{{ e.co }} — {{ e.mode }}</div>
+<p style="margin:4px 0 0;font-size:15px;line-height:1.55;text-wrap:pretty">{{ e.desc }}</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><sc-for list="{{ e.tags }}" as="t" hint-placeholder-count="4"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#555;background:#efefed;padding:2px 8px;border-radius:4px">{{ t }}</span></sc-for></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div data-sec="2" style="display:flex;flex-direction:column;gap:24px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">projects</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#d4d4d2;border:1px solid #d4d4d2">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+<a href="{{ p.href }}" style="background:#fafaf9;padding:24px;display:flex;flex-direction:column;gap:10px;transition:background .25s" style-hover="background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:20px;font-weight:600;letter-spacing:-.02em">{{ p.name }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">{{ p.host }}</span></div>
+<p style="margin:0;font-size:14px;line-height:1.55;color:#333;text-wrap:pretty">{{ p.desc }}</p>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6b6b6b">{{ p.tagline }}</div>
+</a>
+</sc-for>
+</div>
+</div>
+<div data-sec="3" style="display:flex;flex-direction:column;gap:20px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">education</div>
+<sc-for list="{{ edu }}" as="d" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #e2e2e0;padding-bottom:16px"><div><div style="font-weight:600">{{ d.title }}</div><div style="font-size:14px;color:#555">{{ d.school }}</div></div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b;white-space:nowrap">{{ d.years }}</span></div></sc-for>
+</div>
+<div data-sec="4" style="display:flex;flex-direction:column;gap:16px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6b6b6b">contact</div>
+<div style="font-size:32px;font-weight:600;letter-spacing:-.03em">feel free to reach out.</div>
+<a href="mailto:lucasmartinez.it@gmail.com" style="font-family:'IBM Plex Mono',monospace;font-size:15px;text-decoration:underline;text-underline-offset:5px;align-self:flex-start" style-hover="background:#0a0a0a;color:#fafaf9">lucasmartinez.it@gmail.com</a>
+</div>
+</main>
+</div>
+</div>
+
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { typed: '', clock: '', active: 0 };
+  scrollRef = React.createRef();
+  componentDidMount() {
+    const full = 'trying to be the guy you can count on to get things done';
+    let i = 0;
+    const type = () => {
+      i++; this.setState({ typed: full.slice(0, i) });
+      if (i < full.length) this.t = setTimeout(type, 40 + Math.random() * 50);
+    };
+    this.t = setTimeout(type, 700);
+    const tick = () => this.setState({ clock: new Date().toLocaleTimeString('fr-FR', { timeZone: 'Europe/Paris' }) });
+    tick(); this.c = setInterval(tick, 1000);
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { clearTimeout(this.t); clearInterval(this.c); window.removeEventListener('keydown', this.onKey); }
+  ref2b = React.createRef();
+  ref2c = React.createRef();
+  ref3a = React.createRef();
+  onScroll3a = () => {
+    const el = this.ref3a.current; if (!el) return;
+    const past = el.scrollTop > 560, sc = el.scrollTop > 20;
+    if (past !== !!this.state.past3a || sc !== !!this.state.scrolled3a) this.setState({ past3a: past, scrolled3a: sc });
+  };
+  onKey = (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); this.setState(s => ({ palOpen: !s.palOpen, palQ: '', palSel: 0 })); return; }
+    if (!this.state.palOpen) return;
+    const n = this.palList().length;
+    if (e.key === 'Escape') this.setState({ palOpen: false });
+    else if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(s => ({ palSel: Math.min(n - 1, s.palSel + 1) })); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(s => ({ palSel: Math.max(0, s.palSel - 1) })); }
+    else if (e.key === 'Enter') { const it = this.palList()[this.state.palSel]; if (it) it.act(); }
+  };
+  scrollSec = (ref, i, off) => {
+    const el = ref.current; if (!el) return;
+    const s = el.querySelectorAll('[data-sec]')[i]; if (!s) return;
+    el.scrollTo({ top: s.getBoundingClientRect().top - el.getBoundingClientRect().top + el.scrollTop - off, behavior: 'smooth' });
+  };
+  palList() {
+    const close = () => this.setState({ palOpen: false });
+    const sec = (label, i) => ({ label, kind: 'section', act: () => { close(); this.scrollSec(this.ref2b, i, 70); } });
+    const link = (label, url) => ({ label, kind: 'link', act: () => { close(); window.open(url, '_blank'); } });
+    const all = [sec('about', 0), sec('experiences', 1), sec('projects', 2), sec('education', 3), sec('contact', 4),
+      { label: 'copy email', kind: 'action', act: () => { navigator.clipboard?.writeText('lucasmartinez.it@gmail.com'); close(); } },
+      link('github', 'https://github.com/skidlucas'), link('linkedin', 'https://www.linkedin.com/in/lucas-martinez-462336a7'),
+      link('hilo', 'https://hiloapp.dev'), link('re7', 'https://re7.mtnz.app'), link('dropthing', 'https://dropthing.mtnz.app'), link('bara', 'https://bara.mtnz.app')];
+    const q = (this.state.palQ || '').toLowerCase();
+    return all.filter(it => it.label.includes(q));
+  }
+  onScroll2c = () => {
+    const el = this.ref2c.current; if (!el) return;
+    const secs = [...el.querySelectorAll('[data-sec]')];
+    const top = el.getBoundingClientRect().top;
+    let a = 0;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top - top < 260) a = i; });
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 4) a = secs.length - 1;
+    if (a !== this.state.active2c) this.setState({ active2c: a });
+  };
+  onScroll = () => {
+    const el = this.scrollRef.current; if (!el) return;
+    const secs = [...el.querySelectorAll('[data-sec]')];
+    let a = 0;
+    secs.forEach((s, i) => { if (s.offsetTop - el.scrollTop < 200) a = i; });
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 4) a = secs.length - 1;
+    if (a !== this.state.active) this.setState({ active: a });
+  };
+  go = (i) => (ev) => {
+    ev.preventDefault();
+    const el = this.scrollRef.current; if (!el) return;
+    const s = el.querySelectorAll('[data-sec]')[i];
+    el.scrollTo({ top: s.offsetTop - 48, behavior: 'smooth' });
+  };
+  renderVals() {
+    const stack = ['typescript','effect','nestjs','react','postgresql','aws','cloudflare','git','datadog','ci/cd'];
+    const exp = [
+      { role: 'senior software engineer', co: 'graneet', mode: 'remote', years: '2024 – present', desc: 'building erp tools for construction companies to replace excel chaos with real-time project management.', tags: ['nestjs','react','typescript','postgresql','aws','ci/cd'] },
+      { role: 'software engineer → lead', co: 'lizee', mode: 'remote', years: '2021 – 2024', desc: 'managed the logistics platform for circular economy solutions. led a team of 4, helped brands like decathlon or maje launch rental or second hand services.', tags: ['nestjs','react','typescript','postgresql','ci/cd'] },
+      { role: 'software engineer → lead', co: 'mesdocteurs', mode: 'on site', years: '2018 – 2021', desc: 'built the core telemedicine platform. managed 2 people, shipped 24/7 teleconsultation features.', tags: ['angular','nodejs','postgresql','ci/cd'] },
+      { role: 'junior software engineer', co: 'sap labs france', mode: 'on site', years: '2017 – 2018', desc: 'research work on an information extractor for the c3isp eu cybersecurity project.', tags: ['python','research'] },
+    ].map((e, i) => ({ ...e, tagline: e.tags.join(' · '), dot: i === 0 ? '#0a0a0a' : '#fafaf9' }));
+    const projects = [
+      { name: 'pasta', url: null, desc: 'native macos app to set text aside in one keystroke: things to tell the AI later, answers worth keeping. fully vibe coded, for a need i had every single day.', tags: ['swift','swiftui','macos','sqlite'] },
+      { name: 're7', url: 'https://re7.mtnz.app', desc: 'recipe manager for the household. all my own recipes in one place, in the same format. fully vibe coded, purely to scratch a personal itch.', tags: ['effect','typescript','tanstack start','cloudflare workers','d1'] },
+      { name: 'hilo', url: 'https://hiloapp.dev', desc: 'browser extension that explains any highlighted text with AI. select text on a page, get a streamed contextual explanation without leaving the tab.', tags: ['effect','typescript','cloudflare workers','solidjs','browser extension'] },
+      { name: 'dropthing', url: 'https://dropthing.mtnz.app', desc: 'file and snippet sharing project. mostly a learning playground and an excuse to learn Effect.', tags: ['effect','typescript','hono','cloudflare workers','d1','r2'] },
+      { name: 'bara', url: 'https://bara.mtnz.app', desc: 'patient and billing management system. built for my partner, mostly a learning project for me to explore technologies.', tags: ['effect','typescript','react','cloudflare workers','d1'] },
+    ].map((p, i) => ({ ...p, tagline: p.tags.join(' · '), num: String(i + 1).padStart(2, '0'), href: p.url || '#', arrow: p.url ? '↗' : '', host: p.url ? p.url.replace('https://', '') + ' ↗' : 'macos' }));
+    const edu = [
+      { title: 'engineering degree, computer science', school: 'polytech nice sophia — specialized in security', years: '2014 – 2017' },
+      { title: "bachelor's degree, computer science", school: 'iut aix-en-provence', years: '2012 – 2014' },
+    ];
+    const nav = ['about','experiences','projects','education','contact'].map((label, i) => {
+      const on = i === this.state.active;
+      return { label, go: this.go(i), color: on ? '#f2f2f0' : '#8f8f8d', w: on ? '40px' : '16px' };
+    });
+    const pl = this.state.palOpen ? this.palList() : [];
+    const sel = this.state.palSel || 0;
+    const palItems = pl.map((it, i) => ({ label: it.label, kind: it.kind, run: it.act, hover: () => this.setState({ palSel: i }), bg: i === sel ? '#0a0a0a' : 'transparent', fg: i === sel ? '#fafaf9' : '#0a0a0a' }));
+    const a2 = this.state.active2c || 0;
+    const nav2c = ['about','experiences','projects','education','contact'].map((label, i) => ({ label, go: (ev) => { ev.preventDefault(); this.scrollSec(this.ref2c, i, 110); }, color: i === a2 ? '#e8e8e6' : '#6f6f6f', w: i === a2 ? '32px' : '12px' }));
+    const order = ['hilo','bara','re7','pasta','dropthing'];
+    const projects3 = order.map(n => projects.find(p => p.name === n)).map(p => ({ ...p, visit: p.url ? 'visit →' : '' }));
+    const nowItems = [
+      { label: 'stack', value: 'typescript, react, nestjs, postgresql' },
+      { label: 'work', value: 'building new features at graneet' },
+      { label: 'learning', value: 'Effect' },
+      { label: 'reading', value: 'a lot of comic books, slam dunk, the strength of the few' },
+      { label: 'side projects', value: 'mainly hilo, but also jumping around my other personal projects' },
+      { label: 'personal', value: 'training for a race in marseille (23km, 600m d+)' },
+    ];
+    const past = !!this.state.past3a;
+    return {
+      exp3: exp.map(e => ({ years: e.years, title: e.role, subtitle: `${e.co} — ${e.mode}`, desc: e.desc, tagline: e.tagline, inline: true, stacked: false })),
+      edu3: edu.map(d => ({ years: d.years, title: d.title, subtitle: d.school, desc: '', tagline: '', inline: false, stacked: true })),
+      projects3, nowItems, ref3a: this.ref3a, onScroll3a: this.onScroll3a,
+      hdrBg: past ? 'rgba(250,250,249,.88)' : 'transparent', hdrLine: past ? '#e6e6e4' : 'transparent',
+      hdrName: past ? 1 : 0, hdrY: past ? '0px' : '6px', hintOp: this.state.scrolled3a ? 0 : 1,
+      stackLine: stack.join(' · '), clockShort: (this.state.clock || '').slice(0, 5),
+      ref2b: this.ref2b, ref2c: this.ref2c, onScroll2c: this.onScroll2c, nav2c,
+      palOpen: !!this.state.palOpen, palQ: this.state.palQ || '', palItems, palEmpty: this.state.palOpen && pl.length === 0,
+      openPal: () => this.setState({ palOpen: true, palQ: '', palSel: 0 }),
+      closePal: () => this.setState({ palOpen: false }),
+      stop: (e) => e.stopPropagation(),
+      onPalQ: (e) => this.setState({ palQ: e.target.value, palSel: 0 }),
+      motionAttr: this.props.motion === false ? 'off' : 'on',
+      typed: this.state.typed, clock: this.state.clock,
+      stack, marquee: [...stack, ...stack], exp, projects, edu, nav,
+      scrollRef: this.scrollRef, onScroll: this.onScroll,
+    };
+  }
+}
+</script>
+</body>
+</html>
