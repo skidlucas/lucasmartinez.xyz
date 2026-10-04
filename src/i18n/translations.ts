@@ -72,6 +72,9 @@ export const translations = defineTranslations({
 
 		"projects.title": "projects",
 		"projects.visit": "visit",
+		"projects.runway.title": "runway",
+		"projects.runway.description":
+			"personal envelope budget, heavily inspired by actual budget and compatible with its import/export. adds a left-to-spend forecast for any day of the month, net worth tracking with automatic valuations (crypto, stocks, real estate, loans), insights and optional AI. single-user: everyone deploys their own instance on their own cloudflare account.",
 		"projects.pasta.title": "pasta",
 		"projects.pasta.description":
 			"native macos app to set text aside in one keystroke: things to tell the AI later, answers worth keeping. fully vibe coded, for a need i had every single day.",
@@ -167,6 +170,9 @@ export const translations = defineTranslations({
 
 		"projects.title": "projets",
 		"projects.visit": "visiter",
+		"projects.runway.title": "runway",
+		"projects.runway.description":
+			"budget par enveloppes perso, très inspiré d'actual budget et compatible avec son import/export. ajoute une prévision du reste à dépenser pour n'importe quel jour du mois, le suivi du patrimoine avec valorisation automatique (crypto, actions, immobilier, prêts), des analyses et de l'IA en option. mono-utilisateur : chacun déploie sa propre instance sur son propre compte cloudflare.",
 		"projects.pasta.title": "pasta",
 		"projects.pasta.description":
 			"app macos native pour mettre un texte de côté en un raccourci : des trucs à dire à l'IA plus tard, des réponses qui valent le coup d'être gardées. entièrement vibecodé, pour un besoin que j'avais tous les jours.",

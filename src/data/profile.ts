@@ -133,6 +133,23 @@ const projects = [
 		},
 	},
 	{
+		id: "runway",
+		link: "https://github.com/skidlucas/runway",
+		tags: [
+			"effect",
+			"typescript",
+			"tanstack start",
+			"cloudflare workers",
+			"d1",
+			"drizzle",
+			"alchemy",
+		],
+		copy: {
+			title: "projects.runway.title",
+			description: "projects.runway.description",
+		},
+	},
+	{
 		id: "bara",
 		tags: ["effect", "typescript", "react", "cloudflare workers", "d1"],
 		link: "https://bara.mtnz.app",
